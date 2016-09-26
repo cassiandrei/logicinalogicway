@@ -1,0 +1,30 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="compclub.inf.com.logicinalogicway.MainActivity$PlaceholderFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Título"
+        android:id="@+id/tv_Titulo"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lorizzle ipsizzle dolizzle sit amizzle, ghetto shizzlin dizzle dope. Nullizzle i&apos;m in the shizzle velizzle, owned volutpat, dope quis, gravida vel, we gonna chung. Pellentesque eget tortor. Away boom shackalack. Shiz crazy dolor dapibizzle funky fresh tempizzle dope. Maurizzle pellentesque nibh et turpizzle. Fo shizzle izzle its fo rizzle. Pellentesque gizzle the bizzle fizzle. Fo hac habitasse pot dictumst. Dang dapibizzle. Curabitur izzle urna, pretium go to hizzle, mattizzle black, eleifend dang, nunc. Things pizzle. Ghetto sempizzle shut the shizzle up dawg purizzle."
+        android:id="@+id/tv_Descricao"
+        android:layout_below="@+id/tv_Titulo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:textColor="@color/abc_background_cache_hint_selector_material_dark" />
+
+</RelativeLayout>
