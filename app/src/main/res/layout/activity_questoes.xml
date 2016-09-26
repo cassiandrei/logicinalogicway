@@ -17,5 +17,6 @@
         android:layout_alignParentTop="true"
         android:id="@+id/listaquestoesid"
         android:footerDividersEnabled="false"
-        android:headerDividersEnabled="false" />
+        android:headerDividersEnabled="false"
+        android:background="@color/colorPrimary" />
 </RelativeLayout>
