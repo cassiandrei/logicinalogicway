@@ -10,13 +10,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.TextView;
+
+import compclub.inf.com.logicinalogicway.Model.Contexto;
+import compclub.inf.com.logicinalogicway.Model.ContextoDAO;
 
 public class ContextoActivity extends AppCompatActivity {
 
@@ -29,6 +32,7 @@ public class ContextoActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    private Contexto contexto;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -43,10 +47,24 @@ public class ContextoActivity extends AppCompatActivity {
         //barra superior
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Log.println(Log.INFO,"<ContAct>","Vou pegar o id");
+        // Pega ID no banco do contexto
+        Bundle b = this.getIntent().getExtras();
+        long id = b.getLong("_id");
+
+        Log.println(Log.INFO,"<ContAct>","Vou pegar o contexto");
+        ContextoDAO cDAO = new ContextoDAO(this);
+        cDAO.open();
+        contexto = cDAO.getContextoByID(id);
+        cDAO.close();
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        Log.println(Log.INFO,"<ContAct>","Vou criar o adaptador");
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), contexto);
 
+        Log.println(Log.INFO,"<ContAct>","Vou setar o adaptador");
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -90,34 +108,44 @@ public class ContextoActivity extends AppCompatActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
+    public static class ContextoFragment extends Fragment {
         /**
          * The fragment argument representing the section number for this
          * fragment.
          */
-        private static final String ARG_SECTION_NUMBER = "section_number";
+        private static final String TITULO = "titulo";
+        private static final String DEFINICAO = "definicao";
+        private static final String TIPO = "tipo";
 
-        public PlaceholderFragment() {
+        public ContextoFragment() {
+
         }
 
         /**
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
+        public static ContextoFragment newInstance(Contexto contexto) {
+            Log.println(Log.INFO,"<ContFrag>","Criando instancia...");
+            ContextoFragment fragment = new ContextoFragment();
             Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            args.putString(TITULO, contexto.getTitulo());
+            args.putString(DEFINICAO, contexto.getDefinicao());
+            args.putString(TIPO, contexto.getTipo());
             fragment.setArguments(args);
+            Log.println(Log.INFO,"<ContFrag>","Retornando...");
             return fragment;
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+            Log.println(Log.INFO,"<ContFrag>","Criando a vir do fragment...");
             View rootView = inflater.inflate(R.layout.fragment_contexto, container, false);
-            //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            TextView titulo    = (TextView) rootView.findViewById(R.id.tv_Titulo);
+            TextView definicao = (TextView) rootView.findViewById(R.id.tv_contexto);
+            titulo.setText(this.getArguments().getString(TITULO));
+            definicao.setText(this.getArguments().getString(DEFINICAO));
             return rootView;
         }
     }
@@ -128,15 +156,29 @@ public class ContextoActivity extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        private Contexto contexto;
+        private Fragment contextoFragment;
+
+        public SectionsPagerAdapter(FragmentManager fm, Contexto contexto) {
             super(fm);
+            this.contexto = contexto;
+            Log.println(Log.INFO,"<SectPagAdap>","Vou criar uma nova instancia");
+           // contextoFragment = ContextoFragment.newInstance(contexto);
         }
 
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            // Return a ContextoFragment (defined as a static inner class below).
+            switch (position) {
+                case 0:
+                    return ContextoFragment.newInstance(contexto);
+                case 1:
+                    return ContextoFragment.newInstance(contexto);
+                case 2:
+                    return ContextoFragment.newInstance(contexto);
+            }
+            return ContextoFragment.newInstance(contexto);
         }
 
         @Override
@@ -149,11 +191,11 @@ public class ContextoActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "SECTION 1";
+                    return "Regras";
                 case 1:
-                    return "SECTION 2";
+                    return "Contexto";
                 case 2:
-                    return "SECTION 3";
+                    return "Marcações";
             }
             return null;
         }

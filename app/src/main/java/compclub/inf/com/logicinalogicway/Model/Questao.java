@@ -1,4 +1,4 @@
-package compclub.inf.com.logicinalogicway;
+package compclub.inf.com.logicinalogicway.Model;
 
 import android.util.Pair;
 

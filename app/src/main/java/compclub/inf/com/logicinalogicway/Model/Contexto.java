@@ -1,4 +1,4 @@
-package compclub.inf.com.logicinalogicway;
+package compclub.inf.com.logicinalogicway.Model;
 
 import android.util.Pair;
 
@@ -9,13 +9,16 @@ import java.util.List;
  * Created by rafael on 12/09/16.
  */
 public class Contexto {
+    private long id;
     private String definicao;
+    private String titulo;
     private String tipo;
     private List<Pair<Integer, Integer>> marcacoes;
     private List<Questao> questoes;
     private List<Regra> regras;
 
-    public Contexto(String definicao, String tipo){
+    public Contexto(String titulo, String definicao, String tipo){
+        this.titulo = titulo;
         this.definicao = definicao;
         this.tipo = tipo;
         this.marcacoes = new ArrayList<>();
@@ -60,12 +63,24 @@ public class Contexto {
         return t;
     }
 
+    public long getId(){
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getDefinicao() {
         return definicao;
     }
 
     public String getTipo() {
         return tipo;
+    }
+
+    public String getTitulo() {
+        return titulo;
     }
 
     public List<Pair<Integer, Integer>> getMarcacoes() {

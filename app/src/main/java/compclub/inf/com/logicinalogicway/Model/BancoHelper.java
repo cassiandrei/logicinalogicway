@@ -22,6 +22,7 @@ public class BancoHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase database) {
         String DATABASE_CREATE = "CREATE TABLE contextos ( "
                 + " _id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + " titulo TEXT NOT NULL,"
                 + " definicao TEXT NOT NULL,"
                 + " tipo TEXT NOT NULL"
                 + ");"
@@ -40,6 +41,8 @@ public class BancoHelper extends SQLiteOpenHelper {
                 + ");";
 
         database.execSQL(DATABASE_CREATE);
+
+        database.execSQL("insert into contextos (titulo, definicao, tipo) values ('Questão teste','Esta é uma questao teste retirada do banco','ordenacao');");
     }
 
     @Override
