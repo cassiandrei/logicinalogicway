@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+/*
+ * Create by Cassiano
+ */
 public class IntroActivity extends AppCompatActivity {
 
     private ImageView botaoIntro;
