@@ -35,7 +35,7 @@ public class QuestoesActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent intent = new Intent(QuestoesActivity.this,MainActivity.class);
+                Intent intent = new Intent(QuestoesActivity.this,ContextoActivity.class);
                 startActivity(intent);
                 int codigoPosicao = position;
                 Toast.makeText(getApplicationContext(), descricao[codigoPosicao] , Toast.LENGTH_SHORT).show();

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="compclub.inf.com.logicinalogicway.MainActivity">
+    tools:context="compclub.inf.com.logicinalogicway.ContextoActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
