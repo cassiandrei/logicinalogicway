@@ -1,5 +1,6 @@
 package compclub.inf.com.logicinalogicway;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.AdapterView;
@@ -33,8 +34,11 @@ public class QuestoesActivity extends AppCompatActivity {
         listaQuestoes.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent = new Intent(QuestoesActivity.this,MainActivity.class);
+                startActivity(intent);
                 int codigoPosicao = position;
-                Toast.makeText(getApplicationContext(), descricao[codigoPosicao] , Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), descricao[codigoPosicao] , Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/holo_blue_light">
+
+    <RadioButton
+        android:text="Resposta A"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_alternativaA"
+        android:layout_weight="0.99"
+        android:textColor="@android:color/black" />
+
+    <RadioButton
+        android:text="Resposta B"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_alternativaB"
+        android:layout_weight="1.00" />
+
+    <RadioButton
+        android:text="Resposta C"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_alternativaC"
+        android:layout_weight="1" />
+
+    <RadioButton
+        android:text="Resposta D"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:id="@+id/tv_alternativaD" />
+
+    <RadioButton
+        android:text="Resposta E"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_altenativaE"
+        android:layout_weight="0.99" />
+
+</LinearLayout>

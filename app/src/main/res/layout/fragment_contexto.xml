@@ -20,11 +20,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Lorizzle ipsizzle dolizzle sit amizzle, ghetto shizzlin dizzle dope. Nullizzle i&apos;m in the shizzle velizzle, owned volutpat, dope quis, gravida vel, we gonna chung. Pellentesque eget tortor. Away boom shackalack. Shiz crazy dolor dapibizzle funky fresh tempizzle dope. Maurizzle pellentesque nibh et turpizzle. Fo shizzle izzle its fo rizzle. Pellentesque gizzle the bizzle fizzle. Fo hac habitasse pot dictumst. Dang dapibizzle. Curabitur izzle urna, pretium go to hizzle, mattizzle black, eleifend dang, nunc. Things pizzle. Ghetto sempizzle shut the shizzle up dawg purizzle."
-        android:id="@+id/tv_Descricao"
+        android:id="@+id/tv_contexto"
+        android:textColor="@android:color/black"
         android:layout_below="@+id/tv_Titulo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:textAlignment="center"
-        android:textColor="@color/abc_background_cache_hint_selector_material_dark" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

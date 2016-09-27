@@ -8,15 +8,16 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="compclub.inf.com.logicinalogicway.QuestoesActivity">
+    tools:context="compclub.inf.com.logicinalogicway.QuestoesActivity"
+    android:background="@android:color/holo_blue_light">
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
         android:id="@+id/listaquestoesid"
         android:footerDividersEnabled="false"
         android:headerDividersEnabled="false"
-        android:background="@color/colorPrimary" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
