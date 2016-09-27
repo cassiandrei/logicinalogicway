@@ -23,14 +23,10 @@ import android.widget.ListView;
  * Create by Cassiano on 27/09
  */
 public class RegrasFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private static final String CONTEXTO_ID = "contexto_id";
+
+    private int contexto_id;
 
     private OnFragmentInteractionListener mListener;
 
@@ -39,19 +35,16 @@ public class RegrasFragment extends Fragment {
     }
 
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
+     * Use esse método de fábrica para criar uma nova instância desse
+     * fragment usando os parametros providos.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RegrasFragment.
+     * @param _contexto_id ID do contexto no banco de dados.
+     * @return Uma nova instância do fragment RegrasFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static RegrasFragment newInstance(String param1, String param2) {
+    public static RegrasFragment newInstance(int _contexto_id) {
         RegrasFragment fragment = new RegrasFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(CONTEXTO_ID, _contexto_id);
         fragment.setArguments(args);
         return fragment;
     }
@@ -60,8 +53,7 @@ public class RegrasFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            contexto_id = getArguments().getInt(CONTEXTO_ID);
         }
     }
 
