@@ -7,22 +7,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link RegrasFragment.OnFragmentInteractionListener} interface
+ * {@link AlternativasFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link RegrasFragment#newInstance} factory method to
+ * Use the {@link AlternativasFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-
-/*
- * Create by Cassiano on 27/09
- */
-public class RegrasFragment extends Fragment {
+public class AlternativasFragment extends Fragment {
 
     private static final String CONTEXTO_ID = "contexto_id";
 
@@ -30,7 +25,7 @@ public class RegrasFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public RegrasFragment() {
+    public AlternativasFragment() {
         // Required empty public constructor
     }
 
@@ -41,8 +36,8 @@ public class RegrasFragment extends Fragment {
      * @param _contexto_id ID do contexto no banco de dados.
      * @return Uma nova instância do fragment RegrasFragment.
      */
-    public static RegrasFragment newInstance(int _contexto_id) {
-        RegrasFragment fragment = new RegrasFragment();
+    public static AlternativasFragment newInstance(int _contexto_id) {
+        AlternativasFragment fragment = new AlternativasFragment();
         Bundle args = new Bundle();
         args.putInt(CONTEXTO_ID, _contexto_id);
         fragment.setArguments(args);
@@ -61,10 +56,7 @@ public class RegrasFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_regras, container, false);
-        ListView listView = (ListView) view.findViewById(R.id.lv_regras);
-        // TODO: lida com a listview aqui
-        return view;
+        return inflater.inflate(R.layout.fragment_alternativas, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
