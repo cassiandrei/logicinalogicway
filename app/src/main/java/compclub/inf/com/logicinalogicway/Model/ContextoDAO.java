@@ -67,12 +67,12 @@ public class ContextoDAO {
 
     public void deleteContexto(Contexto contexto) {
         long id = contexto.getId();
-        System.out.println("Comment deleted with id: " + id);
-        database.delete(TABLE, "_id" + " = " + id, null);
+        System.out.println("Context deleted with id: " + id);
+        database.delete(TABLE, allColumns[0] + " = " + id, null);
     }
 
     public List<Contexto> getAllContextos() {
-        List<Contexto> comments = new ArrayList<Contexto>();
+        List<Contexto> contextos = new ArrayList<Contexto>();
 
         Cursor cursor = database.query(TABLE,
                 allColumns, null, null, null, null, null);
@@ -80,11 +80,11 @@ public class ContextoDAO {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             Contexto contexto = cursorToContexto(cursor);
-            comments.add(contexto);
+            contextos.add(contexto);
             cursor.moveToNext();
         }
         cursor.close();
-        return comments;
+        return contextos;
     }
 
 }

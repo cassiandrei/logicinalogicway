@@ -14,6 +14,7 @@ public class Questao {
     private int resposta;
     private boolean respondida;
     private boolean acertada;
+    private long id;
     private List<Pair<Integer, Integer>> marcacoes;
 
     public Questao(String enunciado, String[] alternativas, int resposta){
@@ -69,5 +70,13 @@ public class Questao {
 
     public List<Pair<Integer, Integer>> getMarcacoes() {
         return marcacoes;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id){
+        this.id = id;
     }
 }
