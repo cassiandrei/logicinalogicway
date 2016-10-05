@@ -1,5 +1,6 @@
 package compclub.inf.com.logicinalogicway;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +17,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import compclub.inf.com.logicinalogicway.Model.Contexto;
 import compclub.inf.com.logicinalogicway.Model.ContextoDAO;
@@ -63,6 +68,7 @@ public class ContextoActivity extends AppCompatActivity {
         // primary sections of the activity.
         Log.println(Log.INFO,"<ContAct>","Vou criar o adaptador");
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), contexto);
+
 
         Log.println(Log.INFO,"<ContAct>","Vou setar o adaptador");
         // Set up the ViewPager with the sections adapter.
@@ -116,6 +122,7 @@ public class ContextoActivity extends AppCompatActivity {
         private static final String TITULO = "titulo";
         private static final String DEFINICAO = "definicao";
         private static final String TIPO = "tipo";
+        private static final String QUESTOES = "questoes";
 
         public ContextoFragment() {
 
@@ -132,6 +139,7 @@ public class ContextoActivity extends AppCompatActivity {
             args.putString(TITULO, contexto.getTitulo());
             args.putString(DEFINICAO, contexto.getDefinicao());
             args.putString(TIPO, contexto.getTipo());
+            args.putInt(QUESTOES,contexto.getQuestoes().size());
             fragment.setArguments(args);
             Log.println(Log.INFO,"<ContFrag>","Retornando...");
             return fragment;
@@ -144,8 +152,34 @@ public class ContextoActivity extends AppCompatActivity {
             View rootView = inflater.inflate(R.layout.fragment_contexto, container, false);
             TextView titulo    = (TextView) rootView.findViewById(R.id.tv_Titulo);
             TextView definicao = (TextView) rootView.findViewById(R.id.tv_contexto);
+            ListView listaQuestoes = (ListView) rootView.findViewById(R.id.lv_questoes);
             titulo.setText(this.getArguments().getString(TITULO));
             definicao.setText(this.getArguments().getString(DEFINICAO));
+
+            String [] vetor = new String[this.getArguments().getInt(QUESTOES)];
+            for(int i=0;i<this.getArguments().getInt(QUESTOES);i++){
+                vetor[i]=String.valueOf(i+1);
+            }
+
+            ArrayAdapter<String> adaptador = new ArrayAdapter<String>(
+                    this.getContext(),
+                    android.R.layout.simple_list_item_1,
+                    android.R.id.text1,
+                    vetor
+            );
+            listaQuestoes.setAdapter(adaptador);
+            listaQuestoes.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    //Bundle b = new Bundle();
+                    //b.putLong("_id", ids.get(position));
+                    //Intent intent = new Intent(TitulosActivity.this,ContextoActivity.class);
+                    //intent.putExtras(b);
+                    //startActivity(intent);
+                    //int codigoPosicao = position;
+                }
+            });
+
             return rootView;
         }
     }

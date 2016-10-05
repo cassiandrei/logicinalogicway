@@ -25,9 +25,11 @@ public class ContextoDAO {
     };
 
     private static final String TABLE = "contextos";
+    private Context context;
 
     public ContextoDAO(Context context){
         dbHelper = new BancoHelper(context);
+        this.context = context;
     }
 
     public void open() throws SQLException {
@@ -51,6 +53,11 @@ public class ContextoDAO {
     private Contexto cursorToContexto(Cursor cursor) {
         Contexto c = new Contexto(cursor.getString(1), cursor.getString(2), cursor.getString(3));
         c.setId(cursor.getLong(0));
+        QuestaoDAO qdao = new QuestaoDAO(this.context);
+        qdao.open();
+        for (Questao q : qdao.getAllQuestoesFromContexto(c.getId())){
+            c.addQuestao(q);
+        }
         return c;
     }
 

@@ -24,7 +24,7 @@ public class IntroActivity extends AppCompatActivity {
         botaoIntro.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(IntroActivity.this,QuestoesActivity.class);
+                Intent intent = new Intent(IntroActivity.this,TitulosActivity.class);
                 startActivity(intent);
             }
         });
