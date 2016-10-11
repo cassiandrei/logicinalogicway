@@ -156,7 +156,7 @@ public class ContextoActivity extends AppCompatActivity implements RegrasFragmen
 
             String [] vetor = new String[this.getArguments().getInt(QUESTOES)];
             for(int i=0;i<this.getArguments().getInt(QUESTOES);i++){
-                vetor[i]=String.valueOf(i+1);
+                vetor[i]="Questão " + String.valueOf(i+1);
             }
 
             ArrayAdapter<String> adaptador = new ArrayAdapter<String>(
