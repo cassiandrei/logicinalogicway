@@ -71,7 +71,7 @@ public class ContextoActivity extends AppCompatActivity implements RegrasFragmen
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-
+        mViewPager.setCurrentItem(1);
         //botao mensagem
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -203,7 +203,6 @@ public class ContextoActivity extends AppCompatActivity implements RegrasFragmen
             // Return a ContextoFragment (defined as a static inner class below).
             switch (position) {
                 case 0:
-                    Log.println(Log.INFO,"teste","criei fragmento");
                     return RegrasFragment.newInstance(contexto.getId());//ContextoFragment.newInstance(contexto);
                 case 1:
                     return ContextoFragment.newInstance(contexto);
