@@ -2,6 +2,8 @@ package compclub.inf.com.logicinalogicway.Model;
 
 import android.util.Pair;
 
+import java.util.List;
+
 import compclub.inf.com.logicinalogicway.Model.Regra;
 
 /**
@@ -22,5 +24,13 @@ public class RegraOrdenacao extends Regra {
 
     public int getNumCampos(){
         return this.getCampos().size();
+    }
+
+    public String toLabel(){
+        String s = "";
+        for(Pair<String, Boolean> p : getCampos()){
+            s+= p.first + " ";
+        }
+        return s;
     }
 }

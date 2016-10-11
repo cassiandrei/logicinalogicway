@@ -9,6 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import java.util.List;
+
+import compclub.inf.com.logicinalogicway.Model.Contexto;
+import compclub.inf.com.logicinalogicway.Model.ContextoDAO;
+import compclub.inf.com.logicinalogicway.Model.Regra;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,7 +32,9 @@ public class RegrasFragment extends Fragment {
 
     private static final String CONTEXTO_ID = "contexto_id";
 
-    private int contexto_id;
+    private long contexto_id;
+
+    private List<String> regras;
 
     private OnFragmentInteractionListener mListener;
 
@@ -41,10 +49,10 @@ public class RegrasFragment extends Fragment {
      * @param _contexto_id ID do contexto no banco de dados.
      * @return Uma nova instância do fragment RegrasFragment.
      */
-    public static RegrasFragment newInstance(int _contexto_id) {
+    public static RegrasFragment newInstance(long _contexto_id) {
         RegrasFragment fragment = new RegrasFragment();
         Bundle args = new Bundle();
-        args.putInt(CONTEXTO_ID, _contexto_id);
+        args.putLong(CONTEXTO_ID, _contexto_id);
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,7 +61,14 @@ public class RegrasFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            contexto_id = getArguments().getInt(CONTEXTO_ID);
+            contexto_id = getArguments().getLong(CONTEXTO_ID);
+            ContextoDAO dao = new ContextoDAO(this.getContext());
+            dao.open();
+            Contexto c = dao.getContextoByID(contexto_id);
+            dao.close();
+            List<Regra> lr = c.getRegras();
+            for (Regra r: lr)
+                regras.add(r.toLabel());
         }
     }
 
@@ -63,7 +78,7 @@ public class RegrasFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_regras, container, false);
         ListView listView = (ListView) view.findViewById(R.id.lv_regras);
-        // TODO: lida com a listview aqui
+        // TODO: lida com a lista de string regras, que contem as regras. poe na na list view
         return view;
     }
 

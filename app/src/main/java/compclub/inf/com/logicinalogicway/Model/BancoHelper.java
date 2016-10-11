@@ -44,9 +44,13 @@ public class BancoHelper extends SQLiteOpenHelper {
         database.execSQL(QUESTOES_CREATE);
 
         database.execSQL("insert into contextos (titulo, definicao, tipo) values ('Roland Garros',"+
-                "'No torneio de Roland Garros, um dos mais tradicionais torneios de tênis do mundo, realizado em Paris, participam 128 tenistas. Em cada partida, participam dois jogadores, sendo que o vencedor passa para a próxima fase, e o perdedor é eliminado do torneio. A cada rodada, os tenistas que ainda continuam no torneio participam de exatamente uma partida',"+
-                "'Calculo');");
-        database.execSQL("insert into questoes (enunciado, op_a, op_b, op_c, op_d, resposta, respondida, acertada, context_id) values ('enunciado','opcaoa','opcaob','opcaoc','opcaod','2','0','0','1');");
+                "'No torneio de Roland Garros, um dos mais tradicionais torneios de tênis do mundo, "+
+                "realizado em Paris, participam 128 tenistas. Em cada partida, participam dois "+
+                "jogadores, sendo que o vencedor passa para a próxima fase, e o perdedor é eliminado "+
+                "do torneio. A cada rodada, os tenistas que ainda continuam no torneio participam de "+
+                "exatamente uma partida', 'Calculo');");
+        database.execSQL("insert into questoes (enunciado, op_a, op_b, op_c, op_d, resposta, respondida, "+
+                "acertada, context_id) values ('enunciado','opcaoa','opcaob','opcaoc','opcaod','2','0','0','1');");
     }
 
     @Override

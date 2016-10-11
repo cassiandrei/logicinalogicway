@@ -42,4 +42,6 @@ public class Regra {
     public int getTipo() {
         return tipo;
     }
+
+    public String toLabel() { return ""; };
 }

@@ -28,7 +28,7 @@ public class QuestaoFragment extends Fragment {
     }
 
     // TODO: Rename and change types and number of parameters
-    public static QuestaoFragment newInstabnce(Questao questao) {
+    public static QuestaoFragment newInstance(Questao questao) {
         QuestaoFragment fragment = new QuestaoFragment();
         Bundle args = new Bundle();
         args.putString(ENUNCIADO, questao.getEnunciado());
