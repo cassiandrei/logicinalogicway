@@ -13,8 +13,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,10 +26,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.zip.Inflater;
+
 import compclub.inf.com.logicinalogicway.Model.Contexto;
 import compclub.inf.com.logicinalogicway.Model.ContextoDAO;
 
-public class ContextoActivity extends AppCompatActivity implements RegrasFragment.OnFragmentInteractionListener {
+public class ContextoActivity extends AppCompatActivity implements
+        RegrasFragment.OnFragmentInteractionListener,
+        MarcacoesFragment.OnFragmentInteractionListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -72,6 +78,8 @@ public class ContextoActivity extends AppCompatActivity implements RegrasFragmen
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         mViewPager.setCurrentItem(1);
+        this.getDelegate().setHandleNativeActionModesEnabled(false);
+
         //botao mensagem
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -113,87 +121,18 @@ public class ContextoActivity extends AppCompatActivity implements RegrasFragmen
     }
 
     /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class ContextoFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String TITULO = "titulo";
-        private static final String DEFINICAO = "definicao";
-        private static final String TIPO = "tipo";
-        private static final String QUESTOES = "questoes";
-
-        public ContextoFragment() {
-
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static ContextoFragment newInstance(Contexto contexto) {
-            ContextoFragment fragment = new ContextoFragment();
-            Bundle args = new Bundle();
-            args.putString(TITULO, contexto.getTitulo());
-            args.putString(DEFINICAO, contexto.getDefinicao());
-            args.putString(TIPO, contexto.getTipo());
-            args.putInt(QUESTOES,contexto.getQuestoes().size());
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_contexto, container, false);
-            TextView titulo    = (TextView) rootView.findViewById(R.id.tv_Titulo);
-            TextView definicao = (TextView) rootView.findViewById(R.id.tv_contexto);
-            ListView listaQuestoes = (ListView) rootView.findViewById(R.id.lv_questoes);
-            titulo.setText(this.getArguments().getString(TITULO));
-            definicao.setText(this.getArguments().getString(DEFINICAO));
-
-            String [] vetor = new String[this.getArguments().getInt(QUESTOES)];
-            for(int i=0;i<this.getArguments().getInt(QUESTOES);i++){
-                vetor[i]="Questão " + String.valueOf(i+1);
-            }
-
-            ArrayAdapter<String> adaptador = new ArrayAdapter<String>(
-                    this.getContext(),
-                    android.R.layout.simple_list_item_1,
-                    android.R.id.text1,
-                    vetor
-            );
-            listaQuestoes.setAdapter(adaptador);
-            listaQuestoes.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    //Bundle b = new Bundle();
-                    //b.putLong("_id", ids.get(position));
-                    //Intent intent = new Intent(TitulosActivity.this,ContextoActivity.class);
-                    //intent.putExtras(b);
-                    //startActivity(intent);
-                    //int codigoPosicao = position;
-                }
-            });
-
-            return rootView;
-        }
-    }
-
-    /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         private Contexto contexto;
-        private Fragment contextoFragment;
+        private FragmentManager fm;
 
         public SectionsPagerAdapter(FragmentManager fm, Contexto contexto) {
             super(fm);
             this.contexto = contexto;
+            this.fm = fm;
            // contextoFragment = ContextoFragment.newInstance(contexto);
         }
 
@@ -203,11 +142,11 @@ public class ContextoActivity extends AppCompatActivity implements RegrasFragmen
             // Return a ContextoFragment (defined as a static inner class below).
             switch (position) {
                 case 0:
-                    return RegrasFragment.newInstance(contexto.getId());//ContextoFragment.newInstance(contexto);
+                    return RegrasFragment.newInstance(contexto);
                 case 1:
                     return ContextoFragment.newInstance(contexto);
                 case 2:
-                    return ContextoFragment.newInstance(contexto);
+                    return MarcacoesFragment.newInstance(contexto);
             }
             return ContextoFragment.newInstance(contexto);
         }

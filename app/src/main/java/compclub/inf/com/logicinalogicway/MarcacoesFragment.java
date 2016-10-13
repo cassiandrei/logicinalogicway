@@ -1,71 +1,70 @@
 package compclub.inf.com.logicinalogicway;
 
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import compclub.inf.com.logicinalogicway.Model.Contexto;
-import compclub.inf.com.logicinalogicway.Model.Regra;
 
+/**
+ * Created by rafael on 13/10/16.
+ */
 
-public class RegrasFragment extends Fragment {
-
-    private List<String> regras;
+public class MarcacoesFragment extends Fragment {
 
     private Contexto contexto;
 
+    private List<String> list;
+
     private OnFragmentInteractionListener mListener;
 
-    public RegrasFragment() {
+    public MarcacoesFragment() {
         // Required empty public constructor
-    }
-
-    public static RegrasFragment newInstance(Contexto contexto) {
-        RegrasFragment fragment = new RegrasFragment();
-        fragment.setContexto(contexto);
-        return fragment;
     }
 
     public void setContexto(Contexto contexto){
         this.contexto = contexto;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        regras = new ArrayList<>();
+    public static MarcacoesFragment newInstance(Contexto contexto) {
+        MarcacoesFragment fragment = new MarcacoesFragment();
+        fragment.setContexto(contexto);
+        return fragment;
     }
 
     @Override
-    public void onResume(){
-        super.onResume();
-        regras.clear();
-        for (Regra r: contexto.getRegras())
-            regras.add(r.toLabel());
-        ListView listView = (ListView) this.getView().findViewById(R.id.lv_regras);
-        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(
-                this.getContext(),
-                android.R.layout.simple_list_item_1,
-                android.R.id.text1,
-                regras
-        );
-        listView.setAdapter(adaptador);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_regras, container, false);
+        View view = inflater.inflate(R.layout.fragment_marcacoes, container, false);
+        ListView listView = (ListView) view.findViewById(R.id.lv_marcacoes);
+        list = new ArrayList<>();
+        for (Pair<Integer,Integer> m: contexto.getMarcacoes())
+            list.add(contexto.getDefinicao().subSequence(m.first,m.second).toString());
+        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(
+                this.getContext(),
+                android.R.layout.simple_list_item_1,
+                android.R.id.text1,
+                list
+        );
+        listView.setAdapter(adaptador);
+        Log.println(Log.INFO, "marcacoes", listView.toString());
         return view;
     }
 
@@ -88,6 +87,23 @@ public class RegrasFragment extends Fragment {
     }
 
     @Override
+    public void onResume(){
+        View view = this.getView();
+        ListView listView = (ListView) view.findViewById(R.id.lv_marcacoes);
+        list.clear();
+        for (Pair<Integer,Integer> m: contexto.getMarcacoes())
+            list.add(contexto.getDefinicao().subSequence(m.first,m.second).toString());
+        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(
+                this.getContext(),
+                android.R.layout.simple_list_item_1,
+                android.R.id.text1,
+                list
+        );
+        listView.setAdapter(adaptador);
+        super.onResume();
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
@@ -97,4 +113,6 @@ public class RegrasFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
 }
