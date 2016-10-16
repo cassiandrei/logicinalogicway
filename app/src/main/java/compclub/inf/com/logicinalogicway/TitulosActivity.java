@@ -60,7 +60,7 @@ public class TitulosActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle b = new Bundle();
                 b.putLong("_id", ids.get(position));
-                Intent intent = new Intent(TitulosActivity.this,ContextoActivity.class);
+                Intent intent = new Intent(TitulosActivity.this,MainActivity.class);
                 intent.putExtras(b);
                 startActivity(intent);
                 int codigoPosicao = position;

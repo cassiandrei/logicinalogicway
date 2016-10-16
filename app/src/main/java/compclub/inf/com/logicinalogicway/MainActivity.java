@@ -31,7 +31,7 @@ import java.util.zip.Inflater;
 import compclub.inf.com.logicinalogicway.Model.Contexto;
 import compclub.inf.com.logicinalogicway.Model.ContextoDAO;
 
-public class ContextoActivity extends AppCompatActivity implements
+public class MainActivity extends AppCompatActivity implements
         RegrasFragment.OnFragmentInteractionListener,
         MarcacoesFragment.OnFragmentInteractionListener {
 
