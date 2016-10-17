@@ -1,21 +1,19 @@
-package compclub.inf.com.logicinalogicway;
+package compclub.inf.com.logicinalogicway.Fragments;
 
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
-import compclub.inf.com.logicinalogicway.Model.Contexto;
+import compclub.inf.com.logicinalogicway.Classes.Contexto;
+import compclub.inf.com.logicinalogicway.R;
 
 /**
  * Created by rafael on 13/10/16.
@@ -53,8 +51,13 @@ public class MarcacoesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_marcacoes, container, false);
+        populate_list(view);
+        return view;
+    }
+
+    private void populate_list(View view){
         ListView listView = (ListView) view.findViewById(R.id.lv_marcacoes);
-        list = new ArrayList<>();
+        list.clear();
         for (Pair<Integer,Integer> m: contexto.getMarcacoes())
             list.add(contexto.getDefinicao().subSequence(m.first,m.second).toString());
         ArrayAdapter<String> adaptador = new ArrayAdapter<String>(
@@ -64,8 +67,6 @@ public class MarcacoesFragment extends Fragment {
                 list
         );
         listView.setAdapter(adaptador);
-        Log.println(Log.INFO, "marcacoes", listView.toString());
-        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -89,17 +90,7 @@ public class MarcacoesFragment extends Fragment {
     @Override
     public void onResume(){
         View view = this.getView();
-        ListView listView = (ListView) view.findViewById(R.id.lv_marcacoes);
-        list.clear();
-        for (Pair<Integer,Integer> m: contexto.getMarcacoes())
-            list.add(contexto.getDefinicao().subSequence(m.first,m.second).toString());
-        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(
-                this.getContext(),
-                android.R.layout.simple_list_item_1,
-                android.R.id.text1,
-                list
-        );
-        listView.setAdapter(adaptador);
+        populate_list(view);
         super.onResume();
     }
 

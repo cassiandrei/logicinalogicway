@@ -9,6 +9,9 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import compclub.inf.com.logicinalogicway.Classes.Contexto;
+import compclub.inf.com.logicinalogicway.Classes.Questao;
+
 /**
  * Created by rafael on 27/09/16.
  */

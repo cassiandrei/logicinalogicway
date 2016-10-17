@@ -1,7 +1,9 @@
-package compclub.inf.com.logicinalogicway;
+package compclub.inf.com.logicinalogicway.Fragments;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -16,7 +18,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import compclub.inf.com.logicinalogicway.Model.Contexto;
+import compclub.inf.com.logicinalogicway.Classes.Contexto;
+import compclub.inf.com.logicinalogicway.R;
 
 /**
  * Created by rafael on 13/10/16.
@@ -50,12 +53,6 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
     public static ContextoFragment newInstance(Contexto contexto) {
         ContextoFragment fragment = new ContextoFragment();
         fragment.setContexto(contexto);
-        Bundle args = new Bundle();
-        args.putString(TITULO, contexto.getTitulo());
-        args.putString(DEFINICAO, contexto.getDefinicao());
-        args.putString(TIPO, contexto.getTipo());
-        args.putInt(QUESTOES,contexto.getQuestoes().size());
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -69,13 +66,13 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
         TextView titulo    = (TextView) rootView.findViewById(R.id.tv_Titulo);
         definicao = (TextView) rootView.findViewById(R.id.tv_contexto);
         ListView listaQuestoes = (ListView) rootView.findViewById(R.id.lv_questoes);
-        titulo.setText(this.getArguments().getString(TITULO));
-        definicao.setText(this.getArguments().getString(DEFINICAO));
+        titulo.setText(contexto.getTitulo());
+        definicao.setText(contexto.getDefinicao());
         definicao.setTextIsSelectable(true);
         definicao.setCustomSelectionActionModeCallback(this);
 
-        String [] vetor = new String[this.getArguments().getInt(QUESTOES)];
-        for(int i=0;i<this.getArguments().getInt(QUESTOES);i++){
+        String [] vetor = new String[contexto.getQuestoes().size()];
+        for(int i = 0; i < contexto.getQuestoes().size(); i++){
             vetor[i]="Questão " + String.valueOf(i+1);
         }
 
@@ -86,15 +83,15 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
                 vetor
         );
         listaQuestoes.setAdapter(adaptador);
+
         listaQuestoes.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Bundle b = new Bundle();
-                //b.putLong("_id", ids.get(position));
-                //Intent intent = new Intent(TitulosActivity.this,ContextoActivity.class);
-                //intent.putExtras(b);
-                //startActivity(intent);
-                //int codigoPosicao = position;
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+                ft.replace(R.id.container, QuestaoFragment.newInstance(contexto.getQuestoes().get(position)),
+                        "Contexto");
+                ft.commit();
             }
         });
 

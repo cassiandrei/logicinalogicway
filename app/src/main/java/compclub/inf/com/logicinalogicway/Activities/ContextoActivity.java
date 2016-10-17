@@ -1,6 +1,5 @@
-package compclub.inf.com.logicinalogicway;
+package compclub.inf.com.logicinalogicway.Activities;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,24 +11,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.ActionMode;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.zip.Inflater;
-
-import compclub.inf.com.logicinalogicway.Model.Contexto;
+import compclub.inf.com.logicinalogicway.Classes.Contexto;
+import compclub.inf.com.logicinalogicway.Fragments.ContextoFragment;
+import compclub.inf.com.logicinalogicway.Fragments.MarcacoesFragment;
+import compclub.inf.com.logicinalogicway.Fragments.RegrasFragment;
 import compclub.inf.com.logicinalogicway.Model.ContextoDAO;
+import compclub.inf.com.logicinalogicway.R;
 
 public class ContextoActivity extends AppCompatActivity implements
         RegrasFragment.OnFragmentInteractionListener,

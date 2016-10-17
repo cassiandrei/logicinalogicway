@@ -1,4 +1,4 @@
-package compclub.inf.com.logicinalogicway;
+package compclub.inf.com.logicinalogicway.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,14 +6,14 @@ import android.os.Bundle;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import compclub.inf.com.logicinalogicway.Model.Contexto;
+import compclub.inf.com.logicinalogicway.Classes.Contexto;
 import compclub.inf.com.logicinalogicway.Model.ContextoDAO;
+import compclub.inf.com.logicinalogicway.R;
 
 /*
  * Create by Cassiano
@@ -63,8 +63,6 @@ public class TitulosActivity extends AppCompatActivity {
                 Intent intent = new Intent(TitulosActivity.this,ContextoActivity.class);
                 intent.putExtras(b);
                 startActivity(intent);
-                int codigoPosicao = position;
-                Toast.makeText(getApplicationContext(), descricao[codigoPosicao] , Toast.LENGTH_SHORT).show();
             }
         });
     }

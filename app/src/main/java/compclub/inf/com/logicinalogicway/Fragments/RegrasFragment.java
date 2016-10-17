@@ -1,4 +1,4 @@
-package compclub.inf.com.logicinalogicway;
+package compclub.inf.com.logicinalogicway.Fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -13,8 +13,9 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import compclub.inf.com.logicinalogicway.Model.Contexto;
-import compclub.inf.com.logicinalogicway.Model.Regra;
+import compclub.inf.com.logicinalogicway.Classes.Contexto;
+import compclub.inf.com.logicinalogicway.Classes.Regra;
+import compclub.inf.com.logicinalogicway.R;
 
 
 public class RegrasFragment extends Fragment {

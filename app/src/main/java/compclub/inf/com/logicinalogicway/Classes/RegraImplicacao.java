@@ -1,10 +1,8 @@
-package compclub.inf.com.logicinalogicway.Model;
+package compclub.inf.com.logicinalogicway.Classes;
 
 import android.util.Pair;
 
 import java.util.List;
-
-import compclub.inf.com.logicinalogicway.Model.Regra;
 
 /**
  * Created by rafael on 13/09/16.
