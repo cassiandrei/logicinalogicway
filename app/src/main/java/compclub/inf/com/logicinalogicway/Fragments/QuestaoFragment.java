@@ -38,17 +38,8 @@ public class QuestaoFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_questao, container, false);
-        TextView tv_enunciado = (TextView) view.findViewById(R.id.tv_enunciado);
-        tv_enunciado.setText(questao.getEnunciado());
-        RadioButton rb_a = (RadioButton) view.findViewById(R.id.rb_a);
-        RadioButton rb_b = (RadioButton) view.findViewById(R.id.rb_b);
-        RadioButton rb_c = (RadioButton) view.findViewById(R.id.rb_c);
-        RadioButton rb_d = (RadioButton) view.findViewById(R.id.rb_d);
-        rb_a.setText(questao.getAlternativas()[0]);
-        rb_b.setText(questao.getAlternativas()[1]);
-        rb_c.setText(questao.getAlternativas()[2]);
-        rb_d.setText(questao.getAlternativas()[3]);
         Log.println(Log.INFO, "DEBUG", "Criando view do fragment de questao");
         return view;
     }
+
 }

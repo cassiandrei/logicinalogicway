@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 import compclub.inf.com.logicinalogicway.Classes.Contexto;
 import compclub.inf.com.logicinalogicway.R;
@@ -51,6 +52,7 @@ public class MarcacoesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_marcacoes, container, false);
+        list = new ArrayList<>();
         populate_list(view);
         return view;
     }

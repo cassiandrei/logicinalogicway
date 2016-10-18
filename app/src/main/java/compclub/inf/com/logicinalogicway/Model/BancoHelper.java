@@ -33,6 +33,7 @@ public class BancoHelper extends SQLiteOpenHelper {
                 + " op_b TEXT NOT NULL,"
                 + " op_c TEXT NOT NULL,"
                 + " op_d TEXT NOT NULL,"
+                + " op_e TEXT NOT NULL,"
                 + " resposta INTEGER NOT NULL,"
                 + " respondida INTEGER NOT NULL,"
                 + " acertada INTEGER NOT NULL,"
@@ -43,14 +44,16 @@ public class BancoHelper extends SQLiteOpenHelper {
         database.execSQL(CONTEXTO_CREATE);
         database.execSQL(QUESTOES_CREATE);
 
-        database.execSQL("insert into contextos (titulo, definicao, tipo) values ('Roland Garros',"+
-                "'No torneio de Roland Garros, um dos mais tradicionais torneios de tênis do mundo, "+
-                "realizado em Paris, participam 128 tenistas. Em cada partida, participam dois "+
-                "jogadores, sendo que o vencedor passa para a próxima fase, e o perdedor é eliminado "+
-                "do torneio. A cada rodada, os tenistas que ainda continuam no torneio participam de "+
-                "exatamente uma partida', 'Calculo');");
-        database.execSQL("insert into questoes (enunciado, op_a, op_b, op_c, op_d, resposta, respondida, "+
-                "acertada, context_id) values ('enunciado','opcaoa','opcaob','opcaoc','opcaod','2','0','0','1');");
+        database.execSQL("insert into contextos (titulo, definicao, tipo) values ('Vagas de Estacionamento',"+
+                "'Em um prédio de uma companhia existem seis vagas " +
+                "de estacionamento, separadas das demais vagas, para " +
+                "os diretores da empresa. Elas estão dispostas uma " +
+                "ao lado da outra e são numeradas da esquerda para " +
+                "a direita de um a seis. Estas vagas são ocupadas por " +
+                "exatamente seis carros: C, D, F, H, O e V. As seguintes " +
+                "regras também são aplicadas:', 'Calculo');");
+        database.execSQL("insert into questoes (enunciado, op_a, op_b, op_c, op_d, op_e, resposta, respondida, "+
+                "acertada, context_id) values ('enunciado','opcaoa','opcaob','opcaoc','opcaod', 'opecaoe', '2','0','0','1');");
     }
 
     @Override

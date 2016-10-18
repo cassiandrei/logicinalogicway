@@ -1,5 +1,6 @@
 package compclub.inf.com.logicinalogicway.Fragments;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import compclub.inf.com.logicinalogicway.Classes.Contexto;
+import compclub.inf.com.logicinalogicway.Classes.Questao;
 import compclub.inf.com.logicinalogicway.R;
 
 /**
@@ -39,6 +41,8 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
     private Contexto contexto;
     private ListView listaMarcacoes;
 
+    private ContextoFragmentListener listener;
+
     public ContextoFragment() {
     }
 
@@ -46,13 +50,18 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
         this.contexto = contexto;
     }
 
+    public void setListener(ContextoFragmentListener listener){
+        this.listener = listener;
+    }
+
     /**
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static ContextoFragment newInstance(Contexto contexto) {
+    public static ContextoFragment newInstance(Contexto contexto, ContextoFragmentListener listener) {
         ContextoFragment fragment = new ContextoFragment();
         fragment.setContexto(contexto);
+        fragment.setListener(listener);
         return fragment;
     }
 
@@ -87,11 +96,13 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
         listaQuestoes.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                /*FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-                ft.replace(R.id.container, QuestaoFragment.newInstance(contexto.getQuestoes().get(position)),
-                        "Contexto");
-                ft.commit();
+                ft.replace(R.id.fragment_contexto, QuestaoFragment.newInstance(contexto.getQuestoes().get(position)), "Contexto");
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();*/
+                listener.onSwitchToNextFragment(contexto.getQuestoes().get(position));
             }
         });
 
@@ -135,4 +146,9 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
     public void onDestroyActionMode(ActionMode actionMode) {
 
     }
+
+    public interface ContextoFragmentListener{
+        public void onSwitchToNextFragment(Questao questao);
+    }
+
 }

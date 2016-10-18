@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,8 +6,21 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="compclub.inf.com.logicinalogicway.Activities.ContextoActivity$ContextoFragment"
-    android:background="@android:color/background_light">
+    tools:context="compclub.inf.com.logicinalogicway.Fragments.ContextoFragment"
+    android:background="@android:color/background_light"
+    android:orientation="vertical"
+    android:weightSum="1"
+    android:id="@+id/fragment_contexto">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/tv_Titulo"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="Titulos"
+        android:textAlignment="center" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -17,7 +30,15 @@
         android:layout_below="@+id/tv_Titulo"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textIsSelectable="true" />
+        android:textIsSelectable="true"
+        android:text="Contexto" />
+
+    <TextView
+        android:text="Problema solucionado"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:id="@+id/textView3"
+        android:textAlignment="textStart" />
 
     <ListView
         android:layout_width="match_parent"
@@ -27,12 +48,4 @@
         android:layout_alignParentStart="true"
         android:id="@+id/lv_questoes" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/tv_Titulo"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-</RelativeLayout>
+</LinearLayout>
