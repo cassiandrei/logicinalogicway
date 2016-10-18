@@ -34,11 +34,12 @@
         android:text="Contexto" />
 
     <TextView
-        android:text="Problema solucionado"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
         android:id="@+id/tv_problema"
-        android:textAlignment="textStart" />
+        android:textAlignment="textStart"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp" />
 
     <ListView
         android:layout_width="match_parent"

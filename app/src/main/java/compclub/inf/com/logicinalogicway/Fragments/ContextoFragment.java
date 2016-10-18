@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 import compclub.inf.com.logicinalogicway.Classes.Contexto;
 import compclub.inf.com.logicinalogicway.Classes.Questao;
 import compclub.inf.com.logicinalogicway.R;
@@ -97,11 +99,9 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
         listaQuestoes.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                listener.onSwitchToNextFragment(contexto.getQuestoes().get(position));
-
-                if(position == 0){
-                    selecionado.setText("Questao selecionado");
-                }
+                //selecionado.setText("Questao " + position + " selecionado");
+                List<Questao> questoes = contexto.getQuestoes();
+                selecionado.setText(questoes.get(position).getEnunciado());
             }
         });
 

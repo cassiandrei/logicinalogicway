@@ -52,8 +52,27 @@ public class BancoHelper extends SQLiteOpenHelper {
                 "a direita de um a seis. Estas vagas são ocupadas por " +
                 "exatamente seis carros: C, D, F, H, O e V. As seguintes " +
                 "regras também são aplicadas:', 'Calculo');");
+
         database.execSQL("insert into questoes (enunciado, op_a, op_b, op_c, op_d, op_e, resposta, respondida, "+
-                "acertada, context_id) values ('enunciado','opcaoa','opcaob','opcaoc','opcaod', 'opecaoe', '2','0','0','1');");
+                "acertada, context_id) values ('Qual  das  seguintes  opcoes  e  uma  lista " +
+                "completa e correta de carros ocupando as vagas da esquerda para a direita?','opcaoa','opcaob','opcaoc','opcaod', 'opecaoe', '2','0','0','1');");
+
+        database.execSQL("insert into questoes (enunciado, op_a, op_b, op_c, op_d, op_e, resposta, respondida, "+
+                "acertada, context_id) values ('Qual  das  seguintes  armacoes  pode  ser " +
+                "verdadeira?','opcaoa','opcaob','opcaoc','opcaod', 'opecaoe', '2','0','0','1');");
+
+        database.execSQL("insert into questoes (enunciado, op_a, op_b, op_c, op_d, op_e, resposta, respondida, "+
+                "acertada, context_id) values ('Qual das seguintes opçoes é uma vaga que" +
+                " H pode ocupar?','opcaoa','opcaob','opcaoc','opcaod', 'opecaoe', '2','0','0','1');");
+
+        database.execSQL("insert into questoes (enunciado, op_a, op_b, op_c, op_d, op_e, resposta, respondida, "+
+                "acertada, context_id) values ('Qual das seguintes opçoes deve obrigatoriamente " +
+                "ser falsa?','opcaoa','opcaob','opcaoc','opcaod', 'opecaoe', '2','0','0','1');");
+
+        database.execSQL("insert into questoes (enunciado, op_a, op_b, op_c, op_d, op_e, resposta, respondida, "+
+                "acertada, context_id) values ('Qual dos seguintes pares contem carros " +
+                "que podem ocupar a terceira ou a quarta vaga a partir " +
+                "da esquerda?','opcaoa','opcaob','opcaoc','opcaod', 'opecaoe', '2','0','0','1');");
     }
 
     @Override
