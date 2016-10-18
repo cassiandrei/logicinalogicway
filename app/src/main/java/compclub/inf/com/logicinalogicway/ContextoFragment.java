@@ -1,5 +1,6 @@
 package compclub.inf.com.logicinalogicway;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -68,7 +69,10 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
         rootView = inflater.inflate(R.layout.fragment_contexto, container, false);
         TextView titulo    = (TextView) rootView.findViewById(R.id.tv_Titulo);
         definicao = (TextView) rootView.findViewById(R.id.tv_contexto);
+
         ListView listaQuestoes = (ListView) rootView.findViewById(R.id.lv_questoes);
+        final TextView selecionado = (TextView) rootView.findViewById(R.id.tv_problema);
+
         titulo.setText(this.getArguments().getString(TITULO));
         definicao.setText(this.getArguments().getString(DEFINICAO));
         definicao.setTextIsSelectable(true);
@@ -89,12 +93,9 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
         listaQuestoes.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Bundle b = new Bundle();
-                //b.putLong("_id", ids.get(position));
-                //Intent intent = new Intent(TitulosActivity.this,MainActivity.class);
-                //intent.putExtras(b);
-                //startActivity(intent);
-                //int codigoPosicao = position;
+                if(position == 0){
+                    selecionado.setText("Questao selecionado");
+                }
             }
         });
 
