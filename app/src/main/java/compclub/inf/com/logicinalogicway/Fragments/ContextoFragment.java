@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -73,12 +74,14 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
         rootView = inflater.inflate(R.layout.fragment_contexto, container, false);
         TextView titulo    = (TextView) rootView.findViewById(R.id.tv_Titulo);
         definicao = (TextView) rootView.findViewById(R.id.tv_contexto);
+        final TextView selecionado = (TextView) rootView.findViewById(R.id.tv_problema);
+        final ListView listaQuestoes = (ListView) rootView.findViewById(R.id.lv_questoes);
+        final Button botaoVoltar = (Button) rootView.findViewById(R.id.bt_voltar);
 
-        ListView listaQuestoes = (ListView) rootView.findViewById(R.id.lv_questoes);
+        botaoVoltar.setVisibility(View.GONE);
+
         titulo.setText(contexto.getTitulo());
         definicao.setText(contexto.getDefinicao());
-
-        final TextView selecionado = (TextView) rootView.findViewById(R.id.tv_problema);
 
         definicao.setTextIsSelectable(true);
         definicao.setCustomSelectionActionModeCallback(this);
@@ -99,9 +102,10 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
         listaQuestoes.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //selecionado.setText("Questao " + position + " selecionado");
                 List<Questao> questoes = contexto.getQuestoes();
                 selecionado.setText(questoes.get(position).getEnunciado());
+                listaQuestoes.setVisibility(View.GONE);
+                botaoVoltar.setVisibility(View.VISIBLE);
             }
         });
 
