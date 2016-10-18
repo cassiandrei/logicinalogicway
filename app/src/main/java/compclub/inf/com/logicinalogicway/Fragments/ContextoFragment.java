@@ -1,10 +1,7 @@
 package compclub.inf.com.logicinalogicway.Fragments;
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -74,9 +71,13 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
         rootView = inflater.inflate(R.layout.fragment_contexto, container, false);
         TextView titulo    = (TextView) rootView.findViewById(R.id.tv_Titulo);
         definicao = (TextView) rootView.findViewById(R.id.tv_contexto);
+
         ListView listaQuestoes = (ListView) rootView.findViewById(R.id.lv_questoes);
         titulo.setText(contexto.getTitulo());
         definicao.setText(contexto.getDefinicao());
+
+        final TextView selecionado = (TextView) rootView.findViewById(R.id.tv_problema);
+
         definicao.setTextIsSelectable(true);
         definicao.setCustomSelectionActionModeCallback(this);
 
@@ -96,13 +97,11 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
         listaQuestoes.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                /*FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-                ft.replace(R.id.fragment_contexto, QuestaoFragment.newInstance(contexto.getQuestoes().get(position)), "Contexto");
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.addToBackStack(null);
-                ft.commit();*/
                 listener.onSwitchToNextFragment(contexto.getQuestoes().get(position));
+
+                if(position == 0){
+                    selecionado.setText("Questao selecionado");
+                }
             }
         });
 

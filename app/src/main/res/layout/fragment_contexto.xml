@@ -37,7 +37,7 @@
         android:text="Problema solucionado"
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        android:id="@+id/textView3"
+        android:id="@+id/tv_problema"
         android:textAlignment="textStart" />
 
     <ListView
