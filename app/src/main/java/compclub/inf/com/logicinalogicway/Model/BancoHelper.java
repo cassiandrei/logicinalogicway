@@ -51,28 +51,56 @@ public class BancoHelper extends SQLiteOpenHelper {
                 "ao lado da outra e são numeradas da esquerda para " +
                 "a direita de um a seis. Estas vagas são ocupadas por " +
                 "exatamente seis carros: C, D, F, H, O e V. As seguintes " +
-                "regras também são aplicadas:', 'Calculo');");
+                "regras também são aplicadas:', 'Posicionamento');");
 
         database.execSQL("insert into questoes (enunciado, op_a, op_b, op_c, op_d, op_e, resposta, respondida, "+
                 "acertada, context_id) values ('Qual  das  seguintes  opcoes  e  uma  lista " +
-                "completa e correta de carros ocupando as vagas da esquerda para a direita?','opcaoa','opcaob','opcaoc','opcaod', 'opecaoe', '2','0','0','1');");
+                "completa e correta de carros ocupando as vagas da esquerda para a direita?','V, O, C, F, D, H'," +
+                "'C, D, H, O, V, F'," +
+                "'C, V, O, F, H, D'," +
+                "'D, O, H, F, V, C'," +
+                "'C, F, V, O, H, D'," +
+                "'3','0','0','1');");
 
         database.execSQL("insert into questoes (enunciado, op_a, op_b, op_c, op_d, op_e, resposta, respondida, "+
                 "acertada, context_id) values ('Qual  das  seguintes  armacoes  pode  ser " +
-                "verdadeira?','opcaoa','opcaob','opcaoc','opcaod', 'opecaoe', '2','0','0','1');");
+                "verdadeira?','D est´a na terceira vaga a partir da esquerda'," +
+                "'C está imediatamente ao lado de O'," +
+                "'O está na terceira vaga a partir da esquerda'," +
+                "'V está na quarta vaga a partir da esquerda', " +
+                "'D está imediatamente ao lado de H'," +
+                "'2','0','0','1');");
 
         database.execSQL("insert into questoes (enunciado, op_a, op_b, op_c, op_d, op_e, resposta, respondida, "+
                 "acertada, context_id) values ('Qual das seguintes opçoes é uma vaga que" +
-                " H pode ocupar?','opcaoa','opcaob','opcaoc','opcaod', 'opecaoe', '2','0','0','1');");
+                " H pode ocupar?'," +
+                "'1'," +
+                "'2'," +
+                "'3'," +
+                "'4'," +
+                "'5'," +
+                "'2','0','0','1');");
 
         database.execSQL("insert into questoes (enunciado, op_a, op_b, op_c, op_d, op_e, resposta, respondida, "+
                 "acertada, context_id) values ('Qual das seguintes opçoes deve obrigatoriamente " +
-                "ser falsa?','opcaoa','opcaob','opcaoc','opcaod', 'opecaoe', '2','0','0','1');");
+                "ser falsa?'," +
+                "'C está adjacente ao D'," +
+                "'V está adjacente ao F'," +
+                "'D está adjacente ao O'," +
+                "'H está adjacente ao V'," +
+                "'O está adjacente ao H'," +
+                "'3','0','0','1');");
 
         database.execSQL("insert into questoes (enunciado, op_a, op_b, op_c, op_d, op_e, resposta, respondida, "+
                 "acertada, context_id) values ('Qual dos seguintes pares contem carros " +
                 "que podem ocupar a terceira ou a quarta vaga a partir " +
-                "da esquerda?','opcaoa','opcaob','opcaoc','opcaod', 'opecaoe', '2','0','0','1');");
+                "da esquerda?'," +
+                "'H e O'" +
+                ",'D e F'" +
+                ",'F e V'," +
+                "'H e D'," +
+                "'O e D'," +
+                "'0','0','0','1');");
     }
 
     @Override

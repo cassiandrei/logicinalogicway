@@ -26,6 +26,7 @@ public class QuestaoDAO {
             "op_b",
             "op_c",
             "op_d",
+            "op_e",
             "resposta",
             "respondida",
             "acertada",
@@ -53,10 +54,11 @@ public class QuestaoDAO {
         values.put(allColumns[3], opcoes[1]);
         values.put(allColumns[4], opcoes[2]);
         values.put(allColumns[5], opcoes[3]);
-        values.put(allColumns[6], resposta);
-        values.put(allColumns[7], 0);
+        values.put(allColumns[6], opcoes[4]);
+        values.put(allColumns[7], resposta);
         values.put(allColumns[8], 0);
-        values.put(allColumns[9], contexto_id);
+        values.put(allColumns[9], 0);
+        values.put(allColumns[10], contexto_id);
 
         long insertId = database.insert(TABLE, null, values);
         return getQuestaoByID(insertId);
@@ -67,12 +69,13 @@ public class QuestaoDAO {
                 cursor.getString(2),
                 cursor.getString(3),
                 cursor.getString(4),
-                cursor.getString(5)
+                cursor.getString(5),
+                cursor.getString(6)
         };
         Questao q = new Questao(cursor.getString(1), opcoes, cursor.getInt(6));
         q.setId(cursor.getLong(0));
-        q.setRespondida(cursor.getInt(7)!=0);
-        q.setAcertada(cursor.getInt(8)!=0);
+        q.setRespondida(cursor.getInt(8)!=0);
+        q.setAcertada(cursor.getInt(9)!=0);
         return q;
     }
 
@@ -97,7 +100,7 @@ public class QuestaoDAO {
         List<Questao> questoes = new ArrayList<Questao>();
 
         Cursor cursor = database.query(TABLE,
-                allColumns, allColumns[9] + " = " + context_id,
+                allColumns, allColumns[10] + " = " + context_id,
                 null, null, null, null);
 
         cursor.moveToFirst();

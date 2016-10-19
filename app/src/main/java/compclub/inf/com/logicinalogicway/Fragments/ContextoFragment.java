@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -105,8 +106,11 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 List<Questao> questoes = contexto.getQuestoes();
-                selecionado.setVisibility(View.VISIBLE);
                 selecionado.setText(questoes.get(position).getEnunciado());
+                for (int i = 0; i < alternativas.getChildCount(); i++) {
+                    ((RadioButton) alternativas.getChildAt(i)).setText(questoes.get(position).getAlternativas()[i]);
+                }
+                selecionado.setVisibility(View.VISIBLE);
                 listaQuestoes.setVisibility(View.GONE);
                 botaoVoltar.setVisibility(View.VISIBLE);
                 alternativas.setVisibility(View.VISIBLE);
