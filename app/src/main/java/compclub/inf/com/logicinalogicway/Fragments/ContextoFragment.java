@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -77,8 +78,10 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
         final TextView selecionado = (TextView) rootView.findViewById(R.id.tv_problema);
         final ListView listaQuestoes = (ListView) rootView.findViewById(R.id.lv_questoes);
         final Button botaoVoltar = (Button) rootView.findViewById(R.id.bt_voltar);
+        final RadioGroup alternativas = (RadioGroup) rootView.findViewById((R.id.rg_alternativas));
 
         botaoVoltar.setVisibility(View.GONE);
+        alternativas.setVisibility(View.GONE);
 
         titulo.setText(contexto.getTitulo());
         definicao.setText(contexto.getDefinicao());
@@ -98,17 +101,27 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
                 vetor
         );
         listaQuestoes.setAdapter(adaptador);
-
         listaQuestoes.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 List<Questao> questoes = contexto.getQuestoes();
+                selecionado.setVisibility(View.VISIBLE);
                 selecionado.setText(questoes.get(position).getEnunciado());
                 listaQuestoes.setVisibility(View.GONE);
                 botaoVoltar.setVisibility(View.VISIBLE);
+                alternativas.setVisibility(View.VISIBLE);
             }
         });
 
+        botaoVoltar.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                listaQuestoes.setVisibility(View.VISIBLE);
+                botaoVoltar.setVisibility(View.GONE);
+                selecionado.setVisibility(View.INVISIBLE);
+                alternativas.setVisibility(View.GONE);
+            }
+        });
         return rootView;
     }
 
