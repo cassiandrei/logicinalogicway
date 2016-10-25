@@ -39,7 +39,8 @@
         android:id="@+id/tv_problema"
         android:textAlignment="textStart"
         android:paddingTop="20dp"
-        android:paddingBottom="20dp" />
+        android:paddingBottom="20dp"
+        android:text="problema" />
 
     <RadioGroup
         android:layout_width="match_parent"
@@ -90,7 +91,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/lv_questoes"
-        android:footerDividersEnabled="false" />
+        android:footerDividersEnabled="false"
+        android:layout_marginTop="20dp" />
 
     <Button
         android:text="Voltar"

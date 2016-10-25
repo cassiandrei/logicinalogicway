@@ -4,12 +4,17 @@ import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Pair;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +28,7 @@ import compclub.inf.com.logicinalogicway.R;
 public class MarcacoesFragment extends Fragment {
 
     private Contexto contexto;
-
+    private ListView lv_marcacoes;
     private List<String> list;
 
     private OnFragmentInteractionListener mListener;
@@ -52,13 +57,13 @@ public class MarcacoesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_marcacoes, container, false);
+        lv_marcacoes = (ListView) view.findViewById(R.id.lv_marcacoes);
         list = new ArrayList<>();
-        populate_list(view);
+        populate_list();
         return view;
     }
 
-    private void populate_list(View view){
-        ListView listView = (ListView) view.findViewById(R.id.lv_marcacoes);
+    public void populate_list(){
         list.clear();
         for (Pair<Integer,Integer> m: contexto.getMarcacoes())
             list.add(contexto.getDefinicao().subSequence(m.first,m.second).toString());
@@ -68,7 +73,29 @@ public class MarcacoesFragment extends Fragment {
                 android.R.id.text1,
                 list
         );
-        listView.setAdapter(adaptador);
+        lv_marcacoes.setAdapter(adaptador);
+        registerForContextMenu(lv_marcacoes);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
+        if (v.getId() == R.id.lv_marcacoes){
+            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+            menu.setHeaderTitle("Excluir a marcação?");
+            menu.add(menu.NONE, 0, 0, "Sim");
+            menu.add(menu.NONE, 1, 1, "Não");
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        if (item.getItemId() == 0){
+            contexto.excluiMarcacao(item.getItemId());
+            populate_list();
+            Toast.makeText(this.getContext(), "Item Deleted", Toast.LENGTH_LONG).show();
+        }
+        return true;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -87,13 +114,6 @@ public class MarcacoesFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
-    }
-
-    @Override
-    public void onResume(){
-        View view = this.getView();
-        populate_list(view);
-        super.onResume();
     }
 
     @Override

@@ -54,7 +54,7 @@ public class BancoHelper extends SQLiteOpenHelper {
                 "regras também são aplicadas:', 'Posicionamento');");
 
         database.execSQL("insert into questoes (enunciado, op_a, op_b, op_c, op_d, op_e, resposta, respondida, "+
-                "acertada, context_id) values ('Qual  das  seguintes  opcoes  e  uma  lista " +
+                "acertada, context_id) values ('Qual  das  seguintes  opções  é  uma  lista " +
                 "completa e correta de carros ocupando as vagas da esquerda para a direita?','V, O, C, F, D, H'," +
                 "'C, D, H, O, V, F'," +
                 "'C, V, O, F, H, D'," +
@@ -63,8 +63,8 @@ public class BancoHelper extends SQLiteOpenHelper {
                 "'3','0','0','1');");
 
         database.execSQL("insert into questoes (enunciado, op_a, op_b, op_c, op_d, op_e, resposta, respondida, "+
-                "acertada, context_id) values ('Qual  das  seguintes  armacoes  pode  ser " +
-                "verdadeira?','D est´a na terceira vaga a partir da esquerda'," +
+                "acertada, context_id) values ('Qual  das  seguintes  armações  pode  ser " +
+                "verdadeira?','D está na terceira vaga a partir da esquerda'," +
                 "'C está imediatamente ao lado de O'," +
                 "'O está na terceira vaga a partir da esquerda'," +
                 "'V está na quarta vaga a partir da esquerda', " +
@@ -72,7 +72,7 @@ public class BancoHelper extends SQLiteOpenHelper {
                 "'2','0','0','1');");
 
         database.execSQL("insert into questoes (enunciado, op_a, op_b, op_c, op_d, op_e, resposta, respondida, "+
-                "acertada, context_id) values ('Qual das seguintes opçoes é uma vaga que" +
+                "acertada, context_id) values ('Qual das seguintes opções é uma vaga que" +
                 " H pode ocupar?'," +
                 "'1'," +
                 "'2'," +
@@ -82,7 +82,7 @@ public class BancoHelper extends SQLiteOpenHelper {
                 "'2','0','0','1');");
 
         database.execSQL("insert into questoes (enunciado, op_a, op_b, op_c, op_d, op_e, resposta, respondida, "+
-                "acertada, context_id) values ('Qual das seguintes opçoes deve obrigatoriamente " +
+                "acertada, context_id) values ('Qual das seguintes opções deve obrigatoriamente " +
                 "ser falsa?'," +
                 "'C está adjacente ao D'," +
                 "'V está adjacente ao F'," +
@@ -92,7 +92,7 @@ public class BancoHelper extends SQLiteOpenHelper {
                 "'3','0','0','1');");
 
         database.execSQL("insert into questoes (enunciado, op_a, op_b, op_c, op_d, op_e, resposta, respondida, "+
-                "acertada, context_id) values ('Qual dos seguintes pares contem carros " +
+                "acertada, context_id) values ('Qual dos seguintes pares conteém carros " +
                 "que podem ocupar a terceira ou a quarta vaga a partir " +
                 "da esquerda?'," +
                 "'H e O'" +

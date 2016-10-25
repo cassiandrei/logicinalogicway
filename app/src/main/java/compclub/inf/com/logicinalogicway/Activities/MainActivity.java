@@ -2,25 +2,18 @@ package compclub.inf.com.logicinalogicway.Activities;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import compclub.inf.com.logicinalogicway.Classes.Contexto;
-import compclub.inf.com.logicinalogicway.Classes.Questao;
 import compclub.inf.com.logicinalogicway.Fragments.ContextoFragment;
 import compclub.inf.com.logicinalogicway.Fragments.MarcacoesFragment;
-import compclub.inf.com.logicinalogicway.Fragments.QuestaoFragment;
 import compclub.inf.com.logicinalogicway.Fragments.RegrasFragment;
 import compclub.inf.com.logicinalogicway.Model.ContextoDAO;
 import compclub.inf.com.logicinalogicway.R;
@@ -73,17 +66,6 @@ public class MainActivity extends AppCompatActivity implements
 
         mViewPager.setCurrentItem(1);
         this.getDelegate().setHandleNativeActionModesEnabled(false);
-
-        //botao mensagem
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
     }
 
 
@@ -114,14 +96,6 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
-    @Override
-    public void onBackPressed() {
-        if (mSectionsPagerAdapter.isContextoFragmentActive())
-            super.onBackPressed();
-        else
-            mSectionsPagerAdapter.switchToContexto();
-    }
-
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -131,14 +105,11 @@ public class MainActivity extends AppCompatActivity implements
 
         private Contexto contexto;
         private FragmentManager fm;
-        private Fragment fragment_centro;
-        private Fragment fragment_contexto;
 
         public SectionsPagerAdapter(FragmentManager fm, Contexto contexto) {
             super(fm);
             this.contexto = contexto;
             this.fm = fm;
-           // contextoFragment = ContextoFragment.newInstance(contexto);
         }
 
         @Override
@@ -149,19 +120,7 @@ public class MainActivity extends AppCompatActivity implements
                 case 0:
                     return RegrasFragment.newInstance(contexto);
                 case 1:
-                    if (fragment_centro == null) {
-                        fragment_centro = ContextoFragment.newInstance(contexto, new ContextoFragment.ContextoFragmentListener() {
-                            @Override
-                            public void onSwitchToNextFragment(Questao questao) {
-                                FragmentTransaction ft = fm.beginTransaction();
-                                ft.remove(fragment_centro).commit();
-                                fragment_centro = QuestaoFragment.newInstance(questao);
-                                notifyDataSetChanged();
-                            }
-                        });
-                        fragment_contexto = fragment_centro;
-                    }
-                    return fragment_centro;
+                    return ContextoFragment.newInstance(contexto);
                 case 2:
                     return MarcacoesFragment.newInstance(contexto);
                 default:
@@ -176,16 +135,6 @@ public class MainActivity extends AppCompatActivity implements
         }
 
         @Override
-        public int getItemPosition(Object object)
-        {
-            if (object instanceof ContextoFragment && fragment_centro instanceof QuestaoFragment)
-                return POSITION_NONE;
-            if (object instanceof QuestaoFragment && fragment_centro instanceof ContextoFragment)
-                return POSITION_NONE;
-            return POSITION_UNCHANGED;
-        }
-
-        @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
@@ -196,17 +145,6 @@ public class MainActivity extends AppCompatActivity implements
                     return "Marcações";
             }
             return null;
-        }
-
-        public boolean isContextoFragmentActive(){
-            return fragment_centro instanceof ContextoFragment;
-        }
-
-        public void switchToContexto(){
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.remove(fragment_centro).commit();
-            fragment_centro = fragment_contexto;
-            notifyDataSetChanged();
         }
     }
 }
