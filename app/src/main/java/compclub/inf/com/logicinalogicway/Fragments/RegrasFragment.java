@@ -1,9 +1,13 @@
 package compclub.inf.com.logicinalogicway.Fragments;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +17,10 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import compclub.inf.com.logicinalogicway.Activities.RegraDialogActivity;
 import compclub.inf.com.logicinalogicway.Classes.Contexto;
 import compclub.inf.com.logicinalogicway.Classes.Regra;
+import compclub.inf.com.logicinalogicway.Classes.RegraOrdenacao;
 import compclub.inf.com.logicinalogicway.R;
 
 
@@ -46,9 +52,7 @@ public class RegrasFragment extends Fragment {
         regras = new ArrayList<>();
     }
 
-    @Override
-    public void onResume(){
-        super.onResume();
+    public void updateRegras(){
         regras.clear();
         for (Regra r: contexto.getRegras())
             regras.add(r.toLabel());
@@ -67,6 +71,14 @@ public class RegrasFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_regras, container, false);
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.bt_addRegra);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), RegraDialogActivity.class);
+                startActivityForResult(intent, 0);
+            }
+        });
         return view;
     }
 

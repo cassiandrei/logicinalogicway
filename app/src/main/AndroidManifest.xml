@@ -25,7 +25,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.TitulosActivity"></activity>
+        <activity android:name=".Activities.TitulosActivity" />
+        <activity
+            android:name=".Activities.RegraDialogActivity"
+            android:theme="@android:style/Theme.Holo.Dialog">
+        </activity>
     </application>
 
 </manifest>

@@ -108,6 +108,10 @@ public class BancoHelper extends SQLiteOpenHelper {
         Log.w(BancoHelper.class.getName(),
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
+        recreate(db);
+    }
+
+    public void recreate(SQLiteDatabase db){
         db.execSQL("DROP TABLE IF EXISTS contextos");
         db.execSQL("DROP TABLE IF EXISTS questoes");
         onCreate(db);

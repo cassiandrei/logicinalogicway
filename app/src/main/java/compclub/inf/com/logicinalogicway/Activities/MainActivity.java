@@ -1,5 +1,7 @@
 package compclub.inf.com.logicinalogicway.Activities;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,10 +10,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import compclub.inf.com.logicinalogicway.Classes.Contexto;
+import compclub.inf.com.logicinalogicway.Classes.Regra;
+import compclub.inf.com.logicinalogicway.Classes.RegraOrdenacao;
 import compclub.inf.com.logicinalogicway.Fragments.ContextoFragment;
 import compclub.inf.com.logicinalogicway.Fragments.MarcacoesFragment;
 import compclub.inf.com.logicinalogicway.Fragments.RegrasFragment;
@@ -46,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements
         //barra superior
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setVisibility(View.GONE);
 
         // Pega ID no banco do contexto
         Bundle b = this.getIntent().getExtras();
@@ -68,6 +75,25 @@ public class MainActivity extends AppCompatActivity implements
         this.getDelegate().setHandleNativeActionModesEnabled(false);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+            if (resultCode == Activity.RESULT_OK){
+                boolean criado = data.getBooleanExtra("criado", false);
+                if (criado){
+                    RegraOrdenacao regra = new RegraOrdenacao();
+                    String[] campos = data.getStringArrayExtra("campos");
+                    boolean[] checks = data.getBooleanArrayExtra("checks");
+                    regra.setNumCampos(campos.length);
+                    for (int i=0; i<campos.length; i++){
+                        regra.setValorCampo(i, campos[i]);
+                        regra.setCampoAtivo(i, checks[i]);
+                    }
+                    Log.println(Log.INFO, "LOGIC", regra.toLabel());
+                    contexto.getRegras().add(regra);
+                    mSectionsPagerAdapter.updateRegras();
+                }
+            }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -104,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         private Contexto contexto;
+        private RegrasFragment regrasFragment;
         private FragmentManager fm;
 
         public SectionsPagerAdapter(FragmentManager fm, Contexto contexto) {
@@ -118,7 +145,8 @@ public class MainActivity extends AppCompatActivity implements
             // Return a ContextoFragment (defined as a static inner class below).
             switch (position) {
                 case 0:
-                    return RegrasFragment.newInstance(contexto);
+                    regrasFragment = RegrasFragment.newInstance(contexto);
+                    return regrasFragment;
                 case 1:
                     return ContextoFragment.newInstance(contexto);
                 case 2:
@@ -126,6 +154,10 @@ public class MainActivity extends AppCompatActivity implements
                 default:
                     return null;
             }
+        }
+
+        public void updateRegras(){
+            regrasFragment.updateRegras();
         }
 
         @Override

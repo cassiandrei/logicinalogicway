@@ -1,5 +1,6 @@
 package compclub.inf.com.logicinalogicway.Fragments;
 
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;

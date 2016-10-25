@@ -43,5 +43,16 @@ public class Regra {
         return tipo;
     }
 
-    public String toLabel() { return ""; };
+    public String toLabel() {
+        String str = "";
+        for (Pair<String, Boolean> campo : campos) {
+            if (campo.first.equals(null) || campo.first.equals("") || campo.first.equals(" "))
+                str += "_";
+            else
+                str += campo.first;
+            if (!campo.equals(campos.get(campos.size() - 1)))
+                str += " ";
+        }
+        return str;
+    }
 }

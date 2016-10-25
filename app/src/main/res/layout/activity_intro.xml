@@ -20,4 +20,14 @@
         tools:ignore="ContentDescription"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logoclubeid"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:id="@+id/progressBar"
+        android:indeterminate="true" />
 </RelativeLayout>
