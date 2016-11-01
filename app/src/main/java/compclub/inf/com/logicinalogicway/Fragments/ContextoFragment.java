@@ -27,6 +27,8 @@ import compclub.inf.com.logicinalogicway.Classes.Contexto;
 import compclub.inf.com.logicinalogicway.Classes.Questao;
 import compclub.inf.com.logicinalogicway.R;
 
+import static android.graphics.Color.*;
+
 /**
  * Created by rafael on 13/10/16.
  */
@@ -71,15 +73,16 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_marcacoes, container, false);
-        listaMarcacoes = (ListView) rootView.findViewById(R.id.lv_marcacoes);
-        rootView = inflater.inflate(R.layout.fragment_contexto, container, false);
-        TextView titulo    = (TextView) rootView.findViewById(R.id.tv_Titulo);
-        definicao = (TextView) rootView.findViewById(R.id.tv_contexto);
-        final TextView selecionado = (TextView) rootView.findViewById(R.id.tv_problema);
-        final ListView listaQuestoes = (ListView) rootView.findViewById(R.id.lv_questoes);
-        final Button botaoVoltar = (Button) rootView.findViewById(R.id.bt_voltar);
-        final RadioGroup alternativas = (RadioGroup) rootView.findViewById((R.id.rg_alternativas));
+        final View[] rootView = {inflater.inflate(R.layout.fragment_marcacoes, container, false)};
+        listaMarcacoes = (ListView) rootView[0].findViewById(R.id.lv_marcacoes);
+        rootView[0] = inflater.inflate(R.layout.fragment_contexto, container, false);
+        TextView titulo    = (TextView) rootView[0].findViewById(R.id.tv_Titulo);
+        definicao = (TextView) rootView[0].findViewById(R.id.tv_contexto);
+        final TextView selecionado = (TextView) rootView[0].findViewById(R.id.tv_problema);
+        final ListView listaQuestoes = (ListView) rootView[0].findViewById(R.id.lv_questoes);
+        final Button botaoVoltar = (Button) rootView[0].findViewById(R.id.bt_voltar);
+        final Button botaoAnalisar = (Button) rootView[0].findViewById(R.id.bt_analisar);
+        final RadioGroup alternativas = (RadioGroup) rootView[0].findViewById((R.id.rg_alternativas));
 
         selecionado.setVisibility(View.GONE);
         botaoVoltar.setVisibility(View.GONE);
@@ -114,20 +117,30 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
                 selecionado.setVisibility(View.VISIBLE);
                 listaQuestoes.setVisibility(View.GONE);
                 botaoVoltar.setVisibility(View.VISIBLE);
+                botaoAnalisar.setVisibility(View.GONE);
                 alternativas.setVisibility(View.VISIBLE);
+                if(alternativas.getCheckedRadioButtonId()==-1) {
+                    contexto.getQuestoes().get(position).setRespondida(false);
+                    view.setBackgroundColor(Color.WHITE);
+                }else{
+                    contexto.getQuestoes().get(position).setRespondida(true);
+                    view.setBackgroundColor(Color.BLUE);
+                }
             }
         });
 
         botaoVoltar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                alternativas.clearCheck();
                 listaQuestoes.setVisibility(View.VISIBLE);
                 botaoVoltar.setVisibility(View.GONE);
+                botaoAnalisar.setVisibility(View.VISIBLE);
                 selecionado.setVisibility(View.GONE);
                 alternativas.setVisibility(View.GONE);
             }
         });
-        return rootView;
+        return rootView[0];
     }
 
     @Override
