@@ -101,11 +101,24 @@
         android:layout_height="39dp"
         android:id="@+id/bt_analisar" />
 
-    <Button
-        android:text="Voltar"
-        android:layout_height="39dp"
-        android:id="@+id/bt_voltar"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_weight="0.03" />
+        android:layout_height="wrap_content">
+
+        <Button
+            android:text="reset"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/bt_pular"
+            android:layout_weight="1" />
+
+        <Button
+            android:text="Voltar"
+            android:layout_height="match_parent"
+            android:id="@+id/bt_voltar"
+            android:layout_width="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
 
 </LinearLayout>
