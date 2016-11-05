@@ -80,16 +80,21 @@ public class MainActivity extends AppCompatActivity implements
             if (resultCode == Activity.RESULT_OK){
                 boolean criado = data.getBooleanExtra("criado", false);
                 if (criado){
-                    RegraOrdenacao regra = new RegraOrdenacao();
+                    int position = data.getIntExtra("position", -1);
+                    RegraOrdenacao regra;
+                    if (position == -1)
+                        regra = new RegraOrdenacao();
+                    else
+                        regra = (RegraOrdenacao) contexto.getRegras().get(position);
                     String[] campos = data.getStringArrayExtra("campos");
                     boolean[] checks = data.getBooleanArrayExtra("checks");
                     regra.setNumCampos(campos.length);
-                    for (int i=0; i<campos.length; i++){
+                    for (int i = 0; i < campos.length; i++) {
                         regra.setValorCampo(i, campos[i]);
                         regra.setCampoAtivo(i, checks[i]);
                     }
-                    Log.println(Log.INFO, "LOGIC", regra.toLabel());
-                    contexto.getRegras().add(regra);
+                    if (position == -1)
+                        contexto.getRegras().add(regra);
                     mSectionsPagerAdapter.updateRegras();
                 }
             }
@@ -122,6 +127,16 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
+
+    @Override
+    public void onDestroy(){
+        Log.println(Log.INFO, "Activity destruida!", "hehe");
+        ContextoDAO cDAO = new ContextoDAO(this);
+        cDAO.open();
+        cDAO.updateContexto(contexto);
+        cDAO.close();
+        super.onDestroy();
+    }
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to

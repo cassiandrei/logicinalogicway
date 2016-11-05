@@ -91,7 +91,7 @@ public class MarcacoesFragment extends Fragment {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         if (item.getItemId() == 0){
-            contexto.excluiMarcacao(item.getItemId());
+            contexto.excluiMarcacao(info.position);
             populate_list();
             Toast.makeText(this.getContext(), "Item Deleted", Toast.LENGTH_LONG).show();
         }

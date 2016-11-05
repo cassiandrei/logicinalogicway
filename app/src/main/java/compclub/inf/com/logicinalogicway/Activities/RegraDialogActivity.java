@@ -3,6 +3,7 @@ package compclub.inf.com.logicinalogicway.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +23,7 @@ public class RegraDialogActivity extends Activity {
     List<Spinner> campos;
     List<CheckBox> checks;
     String letras;
+    int position;
 
     private Spinner createSpinner(String options){
         Spinner spinner = new Spinner(this);
@@ -51,20 +53,8 @@ public class RegraDialogActivity extends Activity {
         final LinearLayout ll_regraLetra = (LinearLayout) findViewById(R.id.ll_regraLetra);
         final LinearLayout ll_regraCorte = (LinearLayout) findViewById(R.id.ll_regraCorte);
 
-        letras = "CDFHOV";
-
         campos = new ArrayList<>();
         checks = new ArrayList<>();
-        for (int i=0; i<4; i++){
-            Spinner sp = createSpinner(letras);
-            CheckBox cb = new CheckBox(this.getApplicationContext());
-            cb.setChecked(true);
-            cb.setText(Integer.toString(i+1));
-            campos.add(sp);
-            checks.add(cb);
-            ll_regraLetra.addView(sp);
-            ll_regraCorte.addView(cb);
-        }
 
         bt_cancelaRegra.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +80,7 @@ public class RegraDialogActivity extends Activity {
 
                 Intent resultData = new Intent();
                 resultData.putExtra("criado",true);
+                resultData.putExtra("position",position);
                 resultData.putExtra("campos",campos_str);
                 resultData.putExtra("checks",checks_str);
                 setResult(Activity.RESULT_OK, resultData);
@@ -107,7 +98,40 @@ public class RegraDialogActivity extends Activity {
                 array
         ));
 
-        sp_qtdCasas.setSelection(3);
+        letras = getIntent().getStringExtra("variaveis");
+        Bundle bundle = getIntent().getBundleExtra("bundle");
+        if (bundle == null) {
+            position = -1;
+            for (int i = 0; i < 4; i++) {
+                Spinner sp = createSpinner(letras);
+                CheckBox cb = new CheckBox(this.getApplicationContext());
+                cb.setChecked(true);
+                cb.setText(Integer.toString(i + 1));
+                campos.add(sp);
+                checks.add(cb);
+                ll_regraLetra.addView(sp);
+                ll_regraCorte.addView(cb);
+            }
+            sp_qtdCasas.setSelection(3);
+        }
+        else{
+            position = bundle.getInt("position");
+            char[] fields = bundle.getCharArray("fields");
+            boolean[] _checks = bundle.getBooleanArray("checks");
+            for (int i=0; i<fields.length; i++){
+                Spinner sp = createSpinner(letras);
+                CheckBox cb = new CheckBox(this.getApplicationContext());
+                sp.setSelection(letras.indexOf(fields[i]) + 1);
+                cb.setChecked(_checks[i]);
+                cb.setText(Integer.toString(i + 1));
+                campos.add(sp);
+                checks.add(cb);
+                ll_regraLetra.addView(sp);
+                ll_regraCorte.addView(cb);
+            }
+            sp_qtdCasas.setSelection(fields.length);
+        }
+
         sp_qtdCasas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

@@ -24,7 +24,8 @@ public class ContextoDAO {
             "_id",
             "titulo",
             "definicao",
-            "tipo"
+            "tipo",
+            "variaveis"
     };
 
     private static final String TABLE = "contextos";
@@ -43,18 +44,19 @@ public class ContextoDAO {
         dbHelper.close();
     }
 
-    public Contexto createContexto(String titulo, String descricao, String tipo){
+    public Contexto createContexto(String titulo, String descricao, String tipo, String variaveis){
         ContentValues values = new ContentValues();
         values.put(allColumns[1], titulo);
         values.put(allColumns[2], descricao);
         values.put(allColumns[3], tipo);
+        values.put(allColumns[4], variaveis);
 
         long insertId = database.insert(TABLE, null, values);
         return getContextoByID(insertId);
     }
 
     private Contexto cursorToContexto(Cursor cursor) {
-        Contexto c = new Contexto(cursor.getString(1), cursor.getString(2), cursor.getString(3));
+        Contexto c = new Contexto(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4));
         c.setId(cursor.getLong(0));
         QuestaoDAO qdao = new QuestaoDAO(this.context);
         qdao.open();
@@ -95,6 +97,17 @@ public class ContextoDAO {
         }
         cursor.close();
         return contextos;
+    }
+
+    public void updateContexto(Contexto contexto){
+        QuestaoDAO qdao = new QuestaoDAO(this.context);
+        qdao.open();
+        for (Questao q : contexto.getQuestoes()) {
+            Questao _q = qdao.getQuestaoByID(q.getId());
+            if (q.isAcertada() != _q.isAcertada() || q.isRespondida() != q.isRespondida())
+                qdao.updateQuestao(q);
+        }
+        qdao.close();
     }
 
 }

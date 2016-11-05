@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,6 +22,7 @@ import java.net.URL;
 import compclub.inf.com.logicinalogicway.Model.BancoHelper;
 import compclub.inf.com.logicinalogicway.Model.ContextoDAO;
 import compclub.inf.com.logicinalogicway.Model.QuestaoDAO;
+import compclub.inf.com.logicinalogicway.Model.VersionDAO;
 import compclub.inf.com.logicinalogicway.R;
 
 /*
@@ -50,8 +52,44 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     public class BancoPopulator extends AsyncTask {
+        String version;
+        String newVersion;
 
         private boolean needUpgradeBanco(){
+            HttpURLConnection connection = null;
+            BufferedReader reader = null;
+            try {
+                VersionDAO vdao = new VersionDAO(getApplicationContext());
+                vdao.open();
+                version = vdao.getVersion();
+                vdao.close();
+
+                URL url = new URL("http://www?version="+version);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
+
+                InputStream stream = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(stream));
+
+                StringBuffer buffer = new StringBuffer();
+                String line = "";
+
+                while ((line = reader.readLine()) != null)
+                    buffer.append(line + "\n");
+
+                connection.disconnect();
+                reader.close();
+
+                JSONObject jo = new JSONObject(buffer.toString());
+                if (jo.getBoolean("atualizacoes")) {
+                    newVersion = jo.getString("newVersion");
+                    return true;
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                //Toast.makeText(getApplicationContext(),"Incapaz de verificar atualizações.",Toast.LENGTH_SHORT);
+            }
             return false;
         }
 
@@ -60,7 +98,7 @@ public class IntroActivity extends AppCompatActivity {
             BufferedReader reader = null;
 
             try {
-                URL url = new URL("http://www");
+                URL url = new URL("http://www?version="+version);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
 
@@ -97,7 +135,8 @@ public class IntroActivity extends AppCompatActivity {
                     String titulo = problema.getString("titulo");
                     String definicao = problema.getString("definicao");
                     String tipo = problema.getString("tipo");
-                    cdao.createContexto(titulo, definicao, tipo);
+                    String variaves = problema.getString("variaveis");
+                    cdao.createContexto(titulo, definicao, tipo, variaves);
                     JSONArray questoes = problema.getJSONArray("questoes");
                     for (int j=0; j<questoes.length(); j++){
                         JSONObject questao = questoes.getJSONObject(j);
@@ -110,13 +149,16 @@ public class IntroActivity extends AppCompatActivity {
                         qdao.createQuestao(enunciado,opcoes,resposta,i+1);
                     }
                 } catch (JSONException e) {
-                    cdao.close();
-                    qdao.close();
                     e.printStackTrace();
                 }
             }
             qdao.close();
             cdao.close();
+
+            VersionDAO vdao = new VersionDAO(getApplicationContext());
+            vdao.open();
+            vdao.setVersion(newVersion);
+            vdao.close();
         }
 
         @Override

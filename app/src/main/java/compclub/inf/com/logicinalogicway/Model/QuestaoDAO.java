@@ -113,4 +113,13 @@ public class QuestaoDAO {
         return questoes;
     }
 
+    public void updateQuestao(Questao q){
+        long id = q.getId();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(allColumns[8], q.isRespondida());
+        contentValues.put(allColumns[9], q.isAcertada());
+        String whereArgs = "_id = " + id;
+        database.update(TABLE, contentValues, whereArgs, null);
+    }
+
 }

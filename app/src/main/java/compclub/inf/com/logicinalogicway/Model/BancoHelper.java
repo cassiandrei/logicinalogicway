@@ -24,7 +24,8 @@ public class BancoHelper extends SQLiteOpenHelper {
                 + " _id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + " titulo TEXT NOT NULL,"
                 + " definicao TEXT NOT NULL,"
-                + " tipo TEXT NOT NULL"
+                + " tipo TEXT NOT NULL,"
+                + " variaveis TEXT NOT NULL"
                 + ");";
         String QUESTOES_CREATE = " CREATE TABLE questoes ( "
                 + " _id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -40,18 +41,22 @@ public class BancoHelper extends SQLiteOpenHelper {
                 + " context_id INTEGER NOT NULL,"
                 + " FOREIGN KEY (context_id) REFERENCES contextos(_id)"
                 + ");";
+        String VERSION_CREATE = " CREATE TABLE version (version TEXT NOT NULL);";
 
         database.execSQL(CONTEXTO_CREATE);
         database.execSQL(QUESTOES_CREATE);
+        database.execSQL(VERSION_CREATE);
 
-        database.execSQL("insert into contextos (titulo, definicao, tipo) values ('Vagas de Estacionamento',"+
+        database.execSQL("insert into version (version) values ('1.0');");
+
+        database.execSQL("insert into contextos (titulo, definicao, tipo, variaveis) values ('Vagas de Estacionamento',"+
                 "'Em um prédio de uma companhia existem seis vagas " +
                 "de estacionamento, separadas das demais vagas, para " +
                 "os diretores da empresa. Elas estão dispostas uma " +
                 "ao lado da outra e são numeradas da esquerda para " +
                 "a direita de um a seis. Estas vagas são ocupadas por " +
                 "exatamente seis carros: C, D, F, H, O e V. As seguintes " +
-                "regras também são aplicadas:', 'Posicionamento');");
+                "regras também são aplicadas:', 'Posicionamento', 'CDFHOV');");
 
         database.execSQL("insert into questoes (enunciado, op_a, op_b, op_c, op_d, op_e, resposta, respondida, "+
                 "acertada, context_id) values ('Qual  das  seguintes  opções  é  uma  lista " +

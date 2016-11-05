@@ -13,15 +13,17 @@ public class Contexto {
     private String definicao;
     private String titulo;
     private String tipo;
+    private String variaveis;
     private List<Pair<Integer, Integer>> marcacoes;
     private List<Questao> questoes;
     private List<Regra> regras;
     public  int questaoAtiva = 0;
 
-    public Contexto(String titulo, String definicao, String tipo){
+    public Contexto(String titulo, String definicao, String tipo, String variaveis){
         this.titulo = titulo;
         this.definicao = definicao;
         this.tipo = tipo;
+        this.variaveis = variaveis;
         this.marcacoes = new ArrayList<>();
         this.questoes = new ArrayList<>();
         this.regras = new ArrayList<>();
@@ -83,6 +85,8 @@ public class Contexto {
     public String getTitulo() {
         return titulo;
     }
+
+    public String getVariaveis() { return  variaveis; }
 
     public List<Pair<Integer, Integer>> getMarcacoes() {
         return marcacoes;
