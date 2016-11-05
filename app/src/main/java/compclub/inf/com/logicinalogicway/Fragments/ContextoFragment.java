@@ -27,6 +27,8 @@ import compclub.inf.com.logicinalogicway.Classes.Contexto;
 import compclub.inf.com.logicinalogicway.Classes.Questao;
 import compclub.inf.com.logicinalogicway.R;
 
+import static android.graphics.Color.*;
+
 /**
  * Created by rafael on 13/10/16.
  */
@@ -71,19 +73,26 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_marcacoes, container, false);
-        listaMarcacoes = (ListView) rootView.findViewById(R.id.lv_marcacoes);
-        rootView = inflater.inflate(R.layout.fragment_contexto, container, false);
-        TextView titulo    = (TextView) rootView.findViewById(R.id.tv_Titulo);
-        definicao = (TextView) rootView.findViewById(R.id.tv_contexto);
-        final TextView selecionado = (TextView) rootView.findViewById(R.id.tv_problema);
-        final ListView listaQuestoes = (ListView) rootView.findViewById(R.id.lv_questoes);
-        final Button botaoVoltar = (Button) rootView.findViewById(R.id.bt_voltar);
-        final RadioGroup alternativas = (RadioGroup) rootView.findViewById((R.id.rg_alternativas));
-
+        final View[] rootView = {inflater.inflate(R.layout.fragment_marcacoes, container, false)};
+        listaMarcacoes = (ListView) rootView[0].findViewById(R.id.lv_marcacoes);
+        rootView[0] = inflater.inflate(R.layout.fragment_contexto, container, false);
+        TextView titulo    = (TextView) rootView[0].findViewById(R.id.tv_Titulo);
+        definicao = (TextView) rootView[0].findViewById(R.id.tv_contexto);
+        final TextView selecionado = (TextView) rootView[0].findViewById(R.id.tv_problema);
+        final ListView listaQuestoes = (ListView) rootView[0].findViewById(R.id.lv_questoes);
+        //botoes
+        final Button botaoVoltar = (Button) rootView[0].findViewById(R.id.bt_voltar);
+        final Button botaoAnalisar = (Button) rootView[0].findViewById(R.id.bt_analisar);
+        final Button botaoReset = (Button) rootView[0].findViewById(R.id.bt_pular);
+        //alternativas
+        final RadioGroup alternativas = (RadioGroup) rootView[0].findViewById((R.id.rg_alternativas));
+        final int[] poslv = new int[1];
+        final View[] viewlv = new View[1];
+        //visibilidade inicial
         selecionado.setVisibility(View.GONE);
         botaoVoltar.setVisibility(View.GONE);
         alternativas.setVisibility(View.GONE);
+        botaoReset.setVisibility(View.GONE);
 
         titulo.setText(contexto.getTitulo());
         definicao.setText(contexto.getDefinicao());
@@ -94,6 +103,11 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
         String [] vetor = new String[contexto.getQuestoes().size()];
         for(int i = 0; i < contexto.getQuestoes().size(); i++){
             vetor[i]="Questão " + String.valueOf(i+1);
+        }
+
+        final int [] vetorrg = new int[contexto.getQuestoes().size()];
+        for (int i = 0; i < contexto.getQuestoes().size(); i++) {
+            vetorrg[i]=-1;
         }
 
         ArrayAdapter<String> adaptador = new ArrayAdapter<String>(
@@ -111,24 +125,71 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
                 for (int i = 0; i < alternativas.getChildCount(); i++) {
                     ((RadioButton) alternativas.getChildAt(i)).setText(questoes.get(position).getAlternativas()[i]);
                 }
-                selecionado.setVisibility(View.VISIBLE);
+                botaoAnalisar.setVisibility(View.GONE);
                 listaQuestoes.setVisibility(View.GONE);
+                selecionado.setVisibility(View.VISIBLE);
                 botaoVoltar.setVisibility(View.VISIBLE);
+                botaoReset.setVisibility(View.VISIBLE);
                 alternativas.setVisibility(View.VISIBLE);
+                alternativas.check(vetorrg[position]);
+                poslv[0] = position;
+                viewlv[0] = view;
+            }
+        });
+        
+        botaoAnalisar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
 
         botaoVoltar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                vetorrg[poslv[0]]=alternativas.getCheckedRadioButtonId();
+
+                if(vetorrg[poslv[0]]==-1) {
+                    contexto.getQuestoes().get(poslv[0]).setRespondida(false);
+                    viewlv[0].setBackgroundColor(Color.WHITE);
+                }else{
+                    contexto.getQuestoes().get(poslv[0]).setRespondida(true);
+                    viewlv[0].setBackgroundColor(Color.CYAN);
+                }
+                botaoAnalisar.setVisibility(View.VISIBLE);
                 listaQuestoes.setVisibility(View.VISIBLE);
+                botaoReset.setVisibility(View.GONE);
                 botaoVoltar.setVisibility(View.GONE);
                 selecionado.setVisibility(View.GONE);
                 alternativas.setVisibility(View.GONE);
             }
         });
-        return rootView;
+
+        botaoReset.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                alternativas.clearCheck();
+                vetorrg[poslv[0]]=alternativas.getCheckedRadioButtonId();
+
+                if(vetorrg[poslv[0]]==-1) {
+                    contexto.getQuestoes().get(poslv[0]).setRespondida(false);
+                    viewlv[0].setBackgroundColor(Color.WHITE);
+                }else{
+                    contexto.getQuestoes().get(poslv[0]).setRespondida(true);
+                    viewlv[0].setBackgroundColor(Color.CYAN);
+                }
+                botaoAnalisar.setVisibility(View.VISIBLE);
+                listaQuestoes.setVisibility(View.VISIBLE);
+                botaoReset.setVisibility(View.GONE);
+                botaoVoltar.setVisibility(View.GONE);
+                selecionado.setVisibility(View.GONE);
+                alternativas.setVisibility(View.GONE);
+            }
+        });
+
+        return rootView[0];
     }
+
 
     @Override
     public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
