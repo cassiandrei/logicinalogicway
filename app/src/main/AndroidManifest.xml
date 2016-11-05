@@ -28,7 +28,7 @@
         <activity android:name=".Activities.TitulosActivity" />
         <activity
             android:name=".Activities.RegraDialogActivity"
-            android:theme="@android:style/Theme.Holo.Dialog">
+            android:theme="@android:style/Theme.DeviceDefault.Dialog">
         </activity>
     </application>
 

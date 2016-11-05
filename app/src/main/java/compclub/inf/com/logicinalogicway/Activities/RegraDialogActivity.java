@@ -3,13 +3,11 @@ package compclub.inf.com.logicinalogicway.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TableRow;
@@ -17,13 +15,30 @@ import android.widget.TableRow;
 import java.util.ArrayList;
 import java.util.List;
 
-import compclub.inf.com.logicinalogicway.Classes.RegraOrdenacao;
 import compclub.inf.com.logicinalogicway.R;
 
 public class RegraDialogActivity extends Activity {
 
-    List<EditText> campos;
+    List<Spinner> campos;
     List<CheckBox> checks;
+    String letras;
+
+    private Spinner createSpinner(String options){
+        Spinner spinner = new Spinner(this);
+        Character[] array = new Character[options.length()+1];
+        array[0] = ' ';
+        for (int i=0; i<options.length(); i++) array[i+1] = options.toCharArray()[i];
+
+        spinner.setAdapter(new ArrayAdapter<>(
+                getApplicationContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                android.R.id.text1,
+                array
+        ));
+
+        spinner.setSelection(0);
+        return spinner;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,19 +51,18 @@ public class RegraDialogActivity extends Activity {
         final LinearLayout ll_regraLetra = (LinearLayout) findViewById(R.id.ll_regraLetra);
         final LinearLayout ll_regraCorte = (LinearLayout) findViewById(R.id.ll_regraCorte);
 
-        TableRow.LayoutParams params = new TableRow.LayoutParams();
-        params.setMargins(5,0,0,0);
+        letras = "CDFHOV";
 
         campos = new ArrayList<>();
         checks = new ArrayList<>();
         for (int i=0; i<4; i++){
-            EditText et = new EditText(this.getApplicationContext());
+            Spinner sp = createSpinner(letras);
             CheckBox cb = new CheckBox(this.getApplicationContext());
             cb.setChecked(true);
-            //et.setLayoutParams(params);
-            campos.add(et);
+            cb.setText(Integer.toString(i+1));
+            campos.add(sp);
             checks.add(cb);
-            ll_regraLetra.addView(et);
+            ll_regraLetra.addView(sp);
             ll_regraCorte.addView(cb);
         }
 
@@ -68,7 +82,9 @@ public class RegraDialogActivity extends Activity {
                 String[] campos_str = new String[campos.size()];
                 boolean[] checks_str = new boolean[checks.size()];
                 for (int i=0; i<campos.size(); i++){
-                    campos_str[i] = campos.get(i).getText().toString();
+                    campos_str[i] = campos.get(i).getSelectedItem().toString();
+                    if (letras.indexOf(campos_str[i]) == -1)
+                        campos_str[i] = " ";
                     checks_str[i] = checks.get(i).isChecked();
                 }
 
@@ -97,7 +113,7 @@ public class RegraDialogActivity extends Activity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 int item = i+1;
                 while (campos.size() > item){
-                    EditText et = campos.get(campos.size()-1);
+                    Spinner et = campos.get(campos.size()-1);
                     CheckBox cb = checks.get(checks.size()-1);
                     ll_regraLetra.removeView(et);
                     ll_regraCorte.removeView(cb);
@@ -109,10 +125,10 @@ public class RegraDialogActivity extends Activity {
                 params.setMargins(5,0,0,0);
 
                 while (campos.size() < item){
-                    EditText et = new EditText(getApplicationContext());
+                    Spinner et = createSpinner(letras);
                     CheckBox cb = new CheckBox(getApplicationContext());
                     cb.setChecked(true);
-                    et.setLayoutParams(params);
+                    cb.setText(Integer.toString(campos.size()+1));
                     ll_regraLetra.addView(et);
                     ll_regraCorte.addView(cb);
                     campos.add(et);

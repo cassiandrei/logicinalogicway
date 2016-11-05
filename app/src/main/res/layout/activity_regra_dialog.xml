@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_regra_dialog"
     android:layout_width="match_parent"
@@ -7,77 +7,77 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical">
 
-    <TableRow
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
 
         <TextView
             android:text="Casas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView"
+            android:layout_marginRight="20dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Button" />
 
         <Spinner
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/sp_qtdCasas" />
 
-    </TableRow>
+    </LinearLayout>
 
-    <TableRow
+    <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <LinearLayout
-            android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:scrollbars="horizontal">
+        <TableLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/ll_regraLetra">
+            android:layout_height="wrap_content">
+            <TableRow
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ll_regraLetra"
+                android:gravity="center_horizontal"/>
+            <TableRow
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ll_regraCorte"
+                android:gravity="center_horizontal">
+            </TableRow>
+        </TableLayout>
+    </HorizontalScrollView>
 
-        </LinearLayout>
-    </TableRow>
-
-    <TableRow
+    <TextView
+        android:text="Marque para exibir como um campo ativo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:textAlignment="center" />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/ll_regraCorte"></LinearLayout>
-    </TableRow>
-
-    <TableRow
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <TextView
-            android:text="Marque para exibir como um campo ativo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView2"
-            android:textAlignment="center" />
-
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
 
         <Button
             android:text="Cria Regra"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/bt_criaRegra" />
+            android:id="@+id/bt_criaRegra"/>
 
         <Button
             android:text="Cancelar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/bt_cancelaRegra" />
-    </TableRow>
-</TableLayout>
+    </LinearLayout>
+</LinearLayout>
