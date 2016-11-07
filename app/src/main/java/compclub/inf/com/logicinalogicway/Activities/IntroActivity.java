@@ -64,7 +64,7 @@ public class IntroActivity extends AppCompatActivity {
                 version = vdao.getVersion();
                 vdao.close();
 
-                URL url = new URL("http://www?version="+version);
+                URL url = new URL("http://logicinalogicway.heroku.com/version?version="+version);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
 
@@ -98,7 +98,7 @@ public class IntroActivity extends AppCompatActivity {
             BufferedReader reader = null;
 
             try {
-                URL url = new URL("http://www?version="+version);
+                URL url = new URL("http://logicinalogicway.heroku.com/update?version="+version);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
 
@@ -166,10 +166,10 @@ public class IntroActivity extends AppCompatActivity {
 
             if (needUpgradeBanco()){
                 JSONArray json = null;
-                while (json.equals(null))
+                do{
                     json = baixaJSON();
+                }while (json.equals(null));
                 upgradeBanco(json);
-                return 1;
             }
             return null;
         }
@@ -177,10 +177,10 @@ public class IntroActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Object result) {
             super.onPostExecute(result);
-            if (result != null) {
+            //if (result != null) {
                 Intent intent = new Intent(IntroActivity.this, TitulosActivity.class);
                 startActivity(intent);
-            }
+            //}
         }
     }
 

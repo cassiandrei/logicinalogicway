@@ -129,7 +129,7 @@ public class RegraDialogActivity extends Activity {
                 ll_regraLetra.addView(sp);
                 ll_regraCorte.addView(cb);
             }
-            sp_qtdCasas.setSelection(fields.length);
+            sp_qtdCasas.setSelection(fields.length-1);
         }
 
         sp_qtdCasas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){

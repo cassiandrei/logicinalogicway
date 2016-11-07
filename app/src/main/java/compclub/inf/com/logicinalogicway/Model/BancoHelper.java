@@ -47,9 +47,9 @@ public class BancoHelper extends SQLiteOpenHelper {
         database.execSQL(QUESTOES_CREATE);
         database.execSQL(VERSION_CREATE);
 
-        database.execSQL("insert into version (version) values ('1.0');");
+        database.execSQL("insert into version (version) values ('0.0');");
 
-        database.execSQL("insert into contextos (titulo, definicao, tipo, variaveis) values ('Vagas de Estacionamento',"+
+        /*database.execSQL("insert into contextos (titulo, definicao, tipo, variaveis) values ('Vagas de Estacionamento',"+
                 "'Em um prédio de uma companhia existem seis vagas " +
                 "de estacionamento, separadas das demais vagas, para " +
                 "os diretores da empresa. Elas estão dispostas uma " +
@@ -105,7 +105,7 @@ public class BancoHelper extends SQLiteOpenHelper {
                 ",'F e V'," +
                 "'H e D'," +
                 "'O e D'," +
-                "'0','0','0','1');");
+                "'0','0','0','1');");*/
     }
 
     @Override
@@ -119,6 +119,7 @@ public class BancoHelper extends SQLiteOpenHelper {
     public void recreate(SQLiteDatabase db){
         db.execSQL("DROP TABLE IF EXISTS contextos");
         db.execSQL("DROP TABLE IF EXISTS questoes");
+        db.execSQL("DROP TABLE IF EXISTS version");
         onCreate(db);
     }
 }
