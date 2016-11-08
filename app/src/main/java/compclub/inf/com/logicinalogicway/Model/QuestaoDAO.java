@@ -72,7 +72,7 @@ public class QuestaoDAO {
                 cursor.getString(5),
                 cursor.getString(6)
         };
-        Questao q = new Questao(cursor.getString(1), opcoes, cursor.getInt(6));
+        Questao q = new Questao(cursor.getString(1), opcoes, cursor.getInt(7));
         q.setId(cursor.getLong(0));
         q.setRespondida(cursor.getInt(8)!=0);
         q.setAcertada(cursor.getInt(9)!=0);

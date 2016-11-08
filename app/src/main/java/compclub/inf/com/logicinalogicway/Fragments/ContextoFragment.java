@@ -83,7 +83,7 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
         //botoes
         final Button botaoVoltar = (Button) rootView[0].findViewById(R.id.bt_voltar);
         final Button botaoAnalisar = (Button) rootView[0].findViewById(R.id.bt_analisar);
-        final Button botaoReset = (Button) rootView[0].findViewById(R.id.bt_pular);
+        final Button botaoEsquecer = (Button) rootView[0].findViewById(R.id.bt_esquecer);
         //alternativas
         final RadioGroup alternativas = (RadioGroup) rootView[0].findViewById((R.id.rg_alternativas));
         final int[] poslv = new int[1];
@@ -92,7 +92,8 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
         selecionado.setVisibility(View.GONE);
         botaoVoltar.setVisibility(View.GONE);
         alternativas.setVisibility(View.GONE);
-        botaoReset.setVisibility(View.GONE);
+        botaoEsquecer.setVisibility(View.GONE);
+        botaoAnalisar.setVisibility(View.GONE);
 
         titulo.setText(contexto.getTitulo());
         definicao.setText(contexto.getDefinicao());
@@ -100,7 +101,7 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
         definicao.setTextIsSelectable(true);
         definicao.setCustomSelectionActionModeCallback(this);
 
-        String [] vetor = new String[contexto.getQuestoes().size()];
+        final String [] vetor = new String[contexto.getQuestoes().size()];
         for(int i = 0; i < contexto.getQuestoes().size(); i++){
             vetor[i]="Questão " + String.valueOf(i+1);
         }
@@ -129,7 +130,7 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
                 listaQuestoes.setVisibility(View.GONE);
                 selecionado.setVisibility(View.VISIBLE);
                 botaoVoltar.setVisibility(View.VISIBLE);
-                botaoReset.setVisibility(View.VISIBLE);
+                botaoEsquecer.setVisibility(View.VISIBLE);
                 alternativas.setVisibility(View.VISIBLE);
                 alternativas.check(vetorrg[position]);
                 poslv[0] = position;
@@ -147,6 +148,7 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
         botaoVoltar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                Boolean todas = true;
                 vetorrg[poslv[0]]=alternativas.getCheckedRadioButtonId();
 
                 if(vetorrg[poslv[0]]==-1) {
@@ -156,34 +158,44 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
                     contexto.getQuestoes().get(poslv[0]).setRespondida(true);
                     viewlv[0].setBackgroundColor(Color.CYAN);
                 }
-                botaoAnalisar.setVisibility(View.VISIBLE);
+                //todas respondidas?
+                for (int i = 0; i < contexto.getQuestoes().size(); i++) {
+                    if(vetorrg[i] == -1){
+                        todas = false;
+                    }
+                }
+                if(todas == true){
+                    botaoAnalisar.setVisibility(View.VISIBLE);
+                }
                 listaQuestoes.setVisibility(View.VISIBLE);
-                botaoReset.setVisibility(View.GONE);
+                botaoEsquecer.setVisibility(View.GONE);
                 botaoVoltar.setVisibility(View.GONE);
                 selecionado.setVisibility(View.GONE);
                 alternativas.setVisibility(View.GONE);
             }
         });
 
-        botaoReset.setOnClickListener(new View.OnClickListener(){
+        botaoEsquecer.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 alternativas.clearCheck();
-                vetorrg[poslv[0]]=alternativas.getCheckedRadioButtonId();
+            }
+        });
 
-                if(vetorrg[poslv[0]]==-1) {
-                    contexto.getQuestoes().get(poslv[0]).setRespondida(false);
-                    viewlv[0].setBackgroundColor(Color.WHITE);
-                }else{
-                    contexto.getQuestoes().get(poslv[0]).setRespondida(true);
-                    viewlv[0].setBackgroundColor(Color.CYAN);
+        botaoAnalisar.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                View item;
+                for (int i = 0; i < contexto.getQuestoes().size(); i++) {
+                    item = listaQuestoes.getChildAt(i);
+                    if(contexto.getQuestoes().get(i).responde(vetorrg[i]%10)){
+                        item.setBackgroundColor(Color.GREEN);
+                    }
+                    else {
+                        item.setBackgroundColor(Color.RED);
+                    }
+
                 }
-                botaoAnalisar.setVisibility(View.VISIBLE);
-                listaQuestoes.setVisibility(View.VISIBLE);
-                botaoReset.setVisibility(View.GONE);
-                botaoVoltar.setVisibility(View.GONE);
-                selecionado.setVisibility(View.GONE);
-                alternativas.setVisibility(View.GONE);
             }
         });
 
