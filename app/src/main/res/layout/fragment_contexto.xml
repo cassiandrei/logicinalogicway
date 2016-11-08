@@ -107,10 +107,10 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:text="reset"
+            android:text="Esquecer"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/bt_pular"
+            android:id="@+id/bt_esquecer"
             android:layout_weight="1" />
 
         <Button

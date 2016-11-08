@@ -17,7 +17,6 @@ public class Contexto {
     private List<Pair<Integer, Integer>> marcacoes;
     private List<Questao> questoes;
     private List<Regra> regras;
-    public  int questaoAtiva = 0;
 
     public Contexto(String titulo, String definicao, String tipo, String variaveis){
         this.titulo = titulo;
