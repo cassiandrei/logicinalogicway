@@ -1,7 +1,11 @@
 package compclub.inf.com.logicinalogicway.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,25 +34,38 @@ import compclub.inf.com.logicinalogicway.R;
  */
 public class IntroActivity extends AppCompatActivity {
 
-    private ImageView botaoIntro;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
 
-        botaoIntro = (ImageView) findViewById(R.id.logoclubeid);
+        VersionDAO vdao = new VersionDAO(getApplicationContext());
+        vdao.open();
+        String version = vdao.getVersion();
+        vdao.close();
 
-        botaoIntro.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Intent intent = new Intent(IntroActivity.this,TitulosActivity.class);
-                startActivity(intent);
+        if (version.equals("0.0")) {
+            while (!isNetworkAvailable()) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Acesso à rede indisponível");
+                builder.setMessage("Aparentemente seu dispositivo está sem conexão com a internet. " +
+                        "Certifique-se que uma conexão está disponível antes de prosseguir.");
+                builder.setNeutralButton("Prosseguir", null);
+                builder.show();
             }
-        });
-
+        }
+        else if (!isNetworkAvailable()){
+            Toast.makeText(this, "Sem conexão com a internet. Impossível detectar atualizações.", Toast.LENGTH_LONG);
+            navigateToTitulos();
+        }
         new BancoPopulator().execute();
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     public class BancoPopulator extends AsyncTask {
@@ -88,7 +105,6 @@ public class IntroActivity extends AppCompatActivity {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                //Toast.makeText(getApplicationContext(),"Incapaz de verificar atualizações.",Toast.LENGTH_SHORT);
             }
             return false;
         }
@@ -177,11 +193,13 @@ public class IntroActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Object result) {
             super.onPostExecute(result);
-            //if (result != null) {
-                Intent intent = new Intent(IntroActivity.this, TitulosActivity.class);
-                startActivity(intent);
-            //}
+            navigateToTitulos();
         }
+    }
+
+    public void navigateToTitulos(){
+        Intent intent = new Intent(IntroActivity.this, MenuActivity.class);
+        startActivity(intent);
     }
 
 }

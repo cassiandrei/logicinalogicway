@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="compclub.inf.com.logicinalogicway">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -30,8 +31,11 @@
         <activity android:name=".Activities.TitulosActivity" />
         <activity
             android:name=".Activities.RegraDialogActivity"
-            android:theme="@android:style/Theme.DeviceDefault.Dialog">
-        </activity>
+            android:theme="@android:style/Theme.DeviceDefault.Dialog"></activity>
+        <activity
+            android:name=".Activities.MenuActivity"
+            android:label="@string/title_activity_menu"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
