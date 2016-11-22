@@ -126,13 +126,15 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
                 for (int i = 0; i < alternativas.getChildCount(); i++) {
                     ((RadioButton) alternativas.getChildAt(i)).setText(questoes.get(position).getAlternativas()[i]);
                 }
-                botaoAnalisar.setVisibility(View.GONE);
                 listaQuestoes.setVisibility(View.GONE);
                 selecionado.setVisibility(View.VISIBLE);
                 botaoVoltar.setVisibility(View.VISIBLE);
                 botaoEsquecer.setVisibility(View.VISIBLE);
                 alternativas.setVisibility(View.VISIBLE);
-                alternativas.check(vetorrg[position]);
+                if(vetorrg[position]!=-1)
+                    alternativas.check(alternativas.getChildAt(vetorrg[position]).getId());
+                else
+                    alternativas.check(-1);
                 poslv[0] = position;
                 viewlv[0] = view;
             }
@@ -149,7 +151,12 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
             @Override
             public void onClick(View v){
                 Boolean todas = true;
-                vetorrg[poslv[0]]=alternativas.getCheckedRadioButtonId();
+                boolean a = alternativas.isSelected();
+                //Pegando valor da View RadioGroup
+                int RadioButtonId = alternativas.getCheckedRadioButtonId();
+                View RadioButton = alternativas.findViewById(RadioButtonId);
+                vetorrg[poslv[0]]= alternativas.indexOfChild(RadioButton);
+
 
                 if(vetorrg[poslv[0]]==-1) {
                     contexto.getQuestoes().get(poslv[0]).setRespondida(false);
@@ -166,6 +173,9 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
                 }
                 if(todas == true){
                     botaoAnalisar.setVisibility(View.VISIBLE);
+                }
+                else{
+                    botaoAnalisar.setVisibility(View.GONE);
                 }
                 listaQuestoes.setVisibility(View.VISIBLE);
                 botaoEsquecer.setVisibility(View.GONE);
@@ -188,7 +198,7 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
                 View item;
                 for (int i = 0; i < contexto.getQuestoes().size(); i++) {
                     item = listaQuestoes.getChildAt(i);
-                    if(contexto.getQuestoes().get(i).responde(vetorrg[i]%10)){
+                    if(contexto.getQuestoes().get(i).responde(vetorrg[i])){
                         item.setBackgroundColor(Color.GREEN);
                     }
                     else {

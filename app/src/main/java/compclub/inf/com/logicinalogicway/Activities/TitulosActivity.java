@@ -33,7 +33,7 @@ public class TitulosActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_questoes);
+        setContentView(R.layout.activity_titulos);
 
         ContextoDAO cDAO = new ContextoDAO(this);
         cDAO.open();

@@ -28,15 +28,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.TitulosActivity" />
+        <activity android:name=".Activities.TitulosActivity"
+            android:label="Escolha um Problema">
+        </activity>
         <activity
             android:name=".Activities.RegraDialogActivity"
-            android:theme="@android:style/Theme.DeviceDefault.Dialog" />
+            android:theme="@android:style/Theme.DeviceDefault.Dialog"></activity>
         <activity
             android:name=".Activities.MenuActivity"
-            android:label="@string/title_activity_menu"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.InternetlessActivity"></activity>
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

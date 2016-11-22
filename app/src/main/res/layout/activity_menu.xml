@@ -8,50 +8,42 @@
     tools:context="compclub.inf.com.logicinalogicway.Activities.MenuActivity"
     android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-    </android.support.design.widget.AppBarLayout>
-
-    <TableLayout
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center">
+        android:layout_weight="0.5">
 
-        <TableRow
+        <ImageButton
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-            <ImageButton
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:id="@+id/bt_titulos"/>
-            <ImageButton
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:id="@+id/bt_estatisticas"/>
-        </TableRow>
+            android:layout_height="match_parent"
+            android:id="@+id/bt_estatisticas"
+            android:layout_weight="1" />
 
-        <TableRow
+        <ImageButton
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <ImageButton
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:id="@+id/bt_tutorial"/>
-            <ImageButton
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:id="@+id/bt_sobre"/>
-        </TableRow>
-    </TableLayout>
+            android:layout_height="match_parent"
+            android:id="@+id/bt_titulos"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5">
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/bt_sobre"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/bt_tutorial"
+            android:layout_weight="1" />
+    </LinearLayout>
 
 </LinearLayout>
