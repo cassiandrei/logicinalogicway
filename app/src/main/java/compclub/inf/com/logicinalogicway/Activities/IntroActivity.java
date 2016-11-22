@@ -38,7 +38,11 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
         VersionDAO vdao = new VersionDAO(getApplicationContext());
         vdao.open();
         String version = vdao.getVersion();
@@ -46,16 +50,13 @@ public class IntroActivity extends AppCompatActivity {
 
         if (version.equals("0.0")) {
             while (!isNetworkAvailable()) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Acesso à rede indisponível");
-                builder.setMessage("Aparentemente seu dispositivo está sem conexão com a internet. " +
-                        "Certifique-se que uma conexão está disponível antes de prosseguir.");
-                builder.setNeutralButton("Prosseguir", null);
-                builder.show();
+                Log.println(Log.INFO, "LOCIG", "SEM REDE!");
+                Intent intent = new Intent(IntroActivity.this, InternetlessActivity.class);
+                startActivity(intent);
             }
         }
         else if (!isNetworkAvailable()){
-            Toast.makeText(this, "Sem conexão com a internet. Impossível detectar atualizações.", Toast.LENGTH_LONG);
+            Toast.makeText(getApplicationContext(), "Sem conexão com a internet. Impossível detectar atualizações.", Toast.LENGTH_LONG).show();
             navigateToTitulos();
         }
         new BancoPopulator().execute();
@@ -73,8 +74,8 @@ public class IntroActivity extends AppCompatActivity {
         String newVersion;
 
         private boolean needUpgradeBanco(){
-            HttpURLConnection connection = null;
-            BufferedReader reader = null;
+            HttpURLConnection connection;
+            BufferedReader reader;
             try {
                 VersionDAO vdao = new VersionDAO(getApplicationContext());
                 vdao.open();
@@ -89,7 +90,7 @@ public class IntroActivity extends AppCompatActivity {
                 reader = new BufferedReader(new InputStreamReader(stream));
 
                 StringBuffer buffer = new StringBuffer();
-                String line = "";
+                String line;
 
                 while ((line = reader.readLine()) != null)
                     buffer.append(line + "\n");
@@ -122,7 +123,7 @@ public class IntroActivity extends AppCompatActivity {
                 reader = new BufferedReader(new InputStreamReader(stream));
 
                 StringBuffer buffer = new StringBuffer();
-                String line = "";
+                String line;
 
                 while ((line = reader.readLine()) != null)
                     buffer.append(line + "\n");

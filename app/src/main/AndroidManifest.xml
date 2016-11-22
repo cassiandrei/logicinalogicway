@@ -31,11 +31,12 @@
         <activity android:name=".Activities.TitulosActivity" />
         <activity
             android:name=".Activities.RegraDialogActivity"
-            android:theme="@android:style/Theme.DeviceDefault.Dialog"></activity>
+            android:theme="@android:style/Theme.DeviceDefault.Dialog" />
         <activity
             android:name=".Activities.MenuActivity"
             android:label="@string/title_activity_menu"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activities.InternetlessActivity"></activity>
     </application>
 
 </manifest>

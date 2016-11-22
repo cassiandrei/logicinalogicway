@@ -104,13 +104,13 @@ public class RegrasFragment extends Fragment {
         if (item.getItemId() == 0) {
             Bundle b = new Bundle();
             List<Pair<String,Boolean>> campos = contexto.getRegras().get(info.position).getCampos();
-            char[] fields = new char[campos.size()];
+            String[] fields = new String[campos.size()];
             boolean[] checks = new boolean[campos.size()];
             for (int i=0; i<campos.size(); i++){
-                fields[i] = campos.get(i).first.charAt(0);
+                fields[i] = campos.get(i).first;
                 checks[i] = campos.get(i).second;
             }
-            b.putCharArray("fields",fields);
+            b.putStringArray("fields",fields);
             b.putBooleanArray("checks", checks);
             b.putInt("position", info.position);
             Intent intent = new Intent(getActivity(), RegraDialogActivity.class);
@@ -170,29 +170,29 @@ public class RegrasFragment extends Fragment {
             }
             LinearLayout ll = (LinearLayout) v.findViewById(R.id.ll_rowRegra);
             Regra regra = items.get(position);
-                Log.println(Log.INFO, "LOGIC", "Regra: " + regra.toLabel());
-                for (Pair<String, Boolean> r : regra.getCampos()) {
-                    TextView tv = new TextView(getContext());
-                    SpannableString content = new SpannableString(r.first);
-                    content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-                    content.setSpan(new StyleSpan(Typeface.BOLD), 0, content.length(), 0);
-                    tv.setTypeface(Typeface.MONOSPACE);
-                    tv.setTextSize(24);
-                    if (!r.second) {
-                        tv.setTextColor(Color.YELLOW);
-                        content.setSpan(new StrikethroughSpan(), 0, content.length(), 0);
-                    }
-                    tv.setText(content);
-                    ll.addView(tv);
-                    // Adiciona espaço em branco entre letras
-                    if (regra.getCampos().indexOf(r) < regra.getCampos().size() - 1) {
-                        TextView btv = new TextView(getContext());
-                        btv.setText(" ");
-                        btv.setTypeface(Typeface.MONOSPACE);
-                        btv.setTextSize(24);
-                        ll.addView(btv);
-                    }
+            Log.println(Log.INFO, "LOGIC", "Regra: " + regra.toLabel());
+            for (Pair<String, Boolean> r : regra.getCampos()) {
+                TextView tv = new TextView(getContext());
+                SpannableString content = new SpannableString(r.first);
+                content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+                content.setSpan(new StyleSpan(Typeface.BOLD), 0, content.length(), 0);
+                tv.setTypeface(Typeface.MONOSPACE);
+                tv.setTextSize(24);
+                if (!r.second) {
+                    tv.setTextColor(Color.YELLOW);
+                    content.setSpan(new StrikethroughSpan(), 0, content.length(), 0);
                 }
+                tv.setText(content);
+                ll.addView(tv);
+                // Adiciona espaço em branco entre letras
+                if (regra.getCampos().indexOf(r) < regra.getCampos().size() - 1) {
+                    TextView btv = new TextView(getContext());
+                    btv.setText(" ");
+                    btv.setTypeface(Typeface.MONOSPACE);
+                    btv.setTextSize(24);
+                    ll.addView(btv);
+                }
+            }
             return v;
         }
     }

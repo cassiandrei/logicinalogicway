@@ -27,9 +27,7 @@ public class RegraDialogActivity extends Activity {
 
     private Spinner createSpinner(String options){
         Spinner spinner = new Spinner(this);
-        Character[] array = new Character[options.length()+1];
-        array[0] = ' ';
-        for (int i=0; i<options.length(); i++) array[i+1] = options.toCharArray()[i];
+        String[] array = (" ," + options).split(",");
 
         spinner.setAdapter(new ArrayAdapter<>(
                 getApplicationContext(),
@@ -116,12 +114,15 @@ public class RegraDialogActivity extends Activity {
         }
         else{
             position = bundle.getInt("position");
-            char[] fields = bundle.getCharArray("fields");
+            String[] fields = bundle.getStringArray("fields");
             boolean[] _checks = bundle.getBooleanArray("checks");
+            ArrayList<String> cbfields = new ArrayList<>();
+            for (String s : (" ," + letras).split(","))
+                cbfields.add(s);
             for (int i=0; i<fields.length; i++){
                 Spinner sp = createSpinner(letras);
                 CheckBox cb = new CheckBox(this.getApplicationContext());
-                sp.setSelection(letras.indexOf(fields[i]) + 1);
+                sp.setSelection(cbfields.indexOf(fields[i]));
                 cb.setChecked(_checks[i]);
                 cb.setText(Integer.toString(i + 1));
                 campos.add(sp);
