@@ -17,14 +17,16 @@
         <ImageButton
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/bt_estatisticas"
-            android:layout_weight="1" />
+            android:id="@+id/bt_titulos"
+            android:layout_weight="1"
+            android:background="@drawable/questoes" />
 
         <ImageButton
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/bt_titulos"
-            android:layout_weight="1" />
+            android:id="@+id/bt_estatisticas"
+            android:layout_weight="1"
+            android:background="@drawable/estatisticas" />
     </LinearLayout>
 
     <LinearLayout
@@ -36,14 +38,16 @@
         <ImageButton
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/bt_sobre"
-            android:layout_weight="1" />
+            android:id="@+id/bt_tutorial"
+            android:layout_weight="1"
+            android:background="@drawable/tutorial" />
 
         <ImageButton
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/bt_tutorial"
-            android:layout_weight="1" />
+            android:id="@+id/bt_sobre"
+            android:layout_weight="1"
+            android:background="@drawable/sobre" />
     </LinearLayout>
 
 </LinearLayout>

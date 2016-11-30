@@ -25,7 +25,7 @@ public class MenuActivity extends AppCompatActivity {
         tutorial.setOnClickListener(criaListener(TitulosActivity.class));
 
         ImageButton sobre = (ImageButton) this.findViewById(R.id.bt_sobre);
-        sobre.setOnClickListener(criaListener(TitulosActivity.class));
+        sobre.setOnClickListener(criaListener(SobreActivity.class));
     }
 
     private ImageButton.OnClickListener criaListener(final Class destino){
