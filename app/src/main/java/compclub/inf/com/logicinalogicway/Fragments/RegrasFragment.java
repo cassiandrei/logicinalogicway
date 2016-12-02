@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.util.Pair;
 import android.view.ContextMenu;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -177,7 +179,14 @@ public class RegrasFragment extends Fragment {
                 content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
                 content.setSpan(new StyleSpan(Typeface.BOLD), 0, content.length(), 0);
                 tv.setTypeface(Typeface.MONOSPACE);
-                tv.setTextSize(24);
+
+                /*Display display = ((Activity)ll.getContext().getApplicationContext()).getWindowManager().getDefaultDisplay();
+                Point size = new Point();
+                display.getSize(size);
+                int width = size.x;
+                int height = size.y;*/
+
+                tv.setTextSize(12);
                 if (!r.second) {
                     tv.setTextColor(Color.YELLOW);
                     content.setSpan(new StrikethroughSpan(), 0, content.length(), 0);
@@ -189,7 +198,7 @@ public class RegrasFragment extends Fragment {
                     TextView btv = new TextView(getContext());
                     btv.setText(" ");
                     btv.setTypeface(Typeface.MONOSPACE);
-                    btv.setTextSize(24);
+                    btv.setTextSize(12);
                     ll.addView(btv);
                 }
             }

@@ -24,7 +24,8 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/lv_regras" />
+            android:id="@+id/lv_regras"
+            style="@style/Widget.AppCompat.ListView" />
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton

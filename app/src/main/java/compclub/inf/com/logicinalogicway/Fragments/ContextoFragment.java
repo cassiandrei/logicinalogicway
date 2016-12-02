@@ -127,6 +127,7 @@ public class ContextoFragment extends Fragment implements ActionMode.Callback {
                     ((RadioButton) alternativas.getChildAt(i)).setText(questoes.get(position).getAlternativas()[i]);
                 }
                 listaQuestoes.setVisibility(View.GONE);
+                botaoAnalisar.setVisibility(View.GONE);
                 selecionado.setVisibility(View.VISIBLE);
                 botaoVoltar.setVisibility(View.VISIBLE);
                 botaoEsquecer.setVisibility(View.VISIBLE);
