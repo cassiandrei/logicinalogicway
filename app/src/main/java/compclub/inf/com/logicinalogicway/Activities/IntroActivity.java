@@ -82,7 +82,7 @@ public class IntroActivity extends AppCompatActivity {
                 version = vdao.getVersion();
                 vdao.close();
 
-                URL url = new URL("http://logicinalogicway.heroku.com/version?version="+version);
+                URL url = new URL("http://logicinalogicway.herokuapp.com/version?version="+version);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
 
@@ -115,7 +115,7 @@ public class IntroActivity extends AppCompatActivity {
             BufferedReader reader = null;
 
             try {
-                URL url = new URL("http://logicinalogicway.heroku.com/update?version="+version);
+                URL url = new URL("http://logicinalogicway.herokuapp.com/update?version="+version);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
 
